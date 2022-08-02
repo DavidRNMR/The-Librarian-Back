@@ -10,16 +10,15 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name="BOOK")
+@Table(name="Books")
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity implements Serializable {
+public class BookEntity {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String title;
     private long idAuthor;
@@ -30,4 +29,10 @@ public class BookEntity implements Serializable {
     private int pageCount;
     private long idCategory;
     private String language;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private BooksOfUserEntity booksOfUser;
+
+
 }
