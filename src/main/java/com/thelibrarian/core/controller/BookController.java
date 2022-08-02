@@ -19,6 +19,14 @@ public class BookController {
         bookService.getBook();
     }
 
+    @GetMapping(value = "/getByTitleAuthor/{title}/{author}")
+    public ResponseEntity<BookDataDto> getBookByTitleAuthor(@PathVariable String title, @PathVariable String author) {
+        if (bookService.searchBookByTitleAuthor(title, author) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(bookService.searchBookByTitleAuthor(title, author));
+    }
+
 
     @GetMapping(value = "/searchByIsbn/{isbn}")
     public ResponseEntity<BookDataDto> getBookByIsbn( @PathVariable String isbn ) {
@@ -35,7 +43,7 @@ public class BookController {
 
         }
 
-     
+
     }
 
 }
