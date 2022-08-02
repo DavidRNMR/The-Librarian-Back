@@ -1,6 +1,7 @@
 package com.thelibrarian.integration.service;
 
 import com.thelibrarian.integration.dto.BookDataDto;
+import com.thelibrarian.integration.dto.BookDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,9 +24,11 @@ public class BookServiceImpl implements BookService {
     public BookDataDto getBookByIsbn(String isbn) {
         
         url+="isbn:"+isbn;
+
         BookDataDto bookDataDtoIsbn = restTemplate.getForObject(url, BookDataDto.class);
       
     
+        System.out.println(bookDataDtoIsbn.toString());
 
         return bookDataDtoIsbn;
     }

@@ -1,9 +1,11 @@
 package com.thelibrarian.core.controller;
 
+import com.thelibrarian.integration.dto.BookDataDto;
 import com.thelibrarian.integration.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,11 +20,22 @@ public class BookController {
     }
 
 
-    @GetMapping(value = "/searchByIsbn")
+    @GetMapping(value = "/searchByIsbn/{isbn}")
+    public ResponseEntity<BookDataDto> getBookByIsbn( @PathVariable String isbn ) {
 
-    public void getBookByIsbn(@RequestParam String isbn) {
+        BookDataDto checkDto = bookService.getBookByIsbn(isbn);
 
-        bookService.getBookByIsbn(isbn);
+        if(checkDto == null){
+
+            return ResponseEntity.notFound().build();
+
+        }else{
+
+            return ResponseEntity.ok().body(checkDto);
+
+        }
+
+     
     }
 
 }
