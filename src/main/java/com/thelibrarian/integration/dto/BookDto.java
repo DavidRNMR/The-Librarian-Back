@@ -6,5 +6,6 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BookDto {
+    
     public VolumeInfoDto volumeInfo;
 }
