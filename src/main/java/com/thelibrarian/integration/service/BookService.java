@@ -6,4 +6,5 @@ public interface BookService {
     public BookDataDto getBook();
     public BookDataDto searchBookByTitleAuthor(String title, String author);
     public BookDataDto getBookByIsbn(String isbn);
+    public BookDataDto getBookByAuthor(String author);
 }

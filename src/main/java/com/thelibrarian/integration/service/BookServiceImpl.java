@@ -13,11 +13,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDataDto getBook() {
+        url += "a";
         BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
         return bookDataDto;
     }
-
-    @Override
+@Override
     public BookDataDto searchBookByTitleAuthor(String title, String author) {
         url += "+inauthor:" + author + "+intitle:" + title;
         BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
@@ -37,6 +37,12 @@ public class BookServiceImpl implements BookService {
         return bookDataDtoIsbn;
     }
 
+@Override
+    public BookDataDto getBookByAuthor(String Author){
+         url += "+inauthor:" + Author;
+        BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
+        return bookDataDto;
+    }
 
 
 }
