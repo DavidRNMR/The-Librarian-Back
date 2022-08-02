@@ -8,12 +8,28 @@ import org.springframework.web.client.RestTemplate;
 public class BookServiceImpl implements BookService {
 
     RestTemplate restTemplate = new RestTemplate();
-    String url = "https://www.googleapis.com/books/v1/volumes?q=sun&printType=books&maxResults=1";
+    String url = "https://www.googleapis.com/books/v1/volumes?printType=books&q=";
 
     @Override
     public BookDataDto getBook() {
+
         BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
-        System.out.println(bookDataDto.items[0].volumeInfo.getTitle());
+    
+        
         return bookDataDto;
     }
+
+    @Override
+    public BookDataDto getBookByIsbn(String isbn) {
+        
+        url+="isbn:"+isbn;
+        BookDataDto bookDataDtoIsbn = restTemplate.getForObject(url, BookDataDto.class);
+      
+    
+
+        return bookDataDtoIsbn;
+    }
+
+
+
 }

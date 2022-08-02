@@ -8,6 +8,7 @@ import java.util.Map;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VolumeInfoDto {
+
     private String title;
     private String[] authors;
     private String publishedDate;
