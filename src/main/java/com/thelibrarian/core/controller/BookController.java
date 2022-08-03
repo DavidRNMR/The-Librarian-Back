@@ -14,47 +14,42 @@ public class BookController {
     @Autowired
     BookServiceImpl bookService;
 
-     @GetMapping(value = "/get")
-    public BookDataDto getBook() {
-        BookDataDto book = bookService.getBook();
-        return book;
+
+
+    @GetMapping(value = "/get")
+    public ResponseEntity<BookDataDto> getBook() {
+       
+        return bookService.getBook();
     }
 
- @GetMapping(value = "/getByTitleAuthor/{title}/{author}")
+
+
+    @GetMapping(value = "/getByTitleAuthor/{title}/{author}")
     public ResponseEntity<BookDataDto> getBookByTitleAuthor(@PathVariable String title, @PathVariable String author) {
-        if (bookService.searchBookByTitleAuthor(title, author) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().body(bookService.searchBookByTitleAuthor(title, author));
+     
+        return bookService.searchBookByTitleAuthor(title, author);
     }
+
 
 
     @GetMapping(value = "/searchByIsbn/{isbn}")
-    public ResponseEntity<BookDataDto> getBookByIsbn( @PathVariable String isbn ) {
+    public ResponseEntity<BookDataDto> getBookByIsbn(@PathVariable String isbn) {
 
-        BookDataDto checkDto = bookService.getBookByIsbn(isbn);
+        return bookService.getBookByIsbn(isbn);
 
-        if(checkDto == null){
-
-            return ResponseEntity.notFound().build();
-
-        }else{
-
-            return ResponseEntity.ok().body(checkDto);
-
-        }
     }
 
- @GetMapping("/author/{author}")
-    public ResponseEntity<BookDataDto> findByAuthor(@PathVariable String author){
-        BookDataDto bookbyauthor = bookService.getBookByAuthor(author);
+
+
+    @GetMapping("/author/{author}")
+    public ResponseEntity<BookDataDto> findByAuthor(@PathVariable String author) {
         
-        if (bookbyauthor == null) {
-            return ResponseEntity.notFound().build();
-        } else{
-            return ResponseEntity.ok().body(bookbyauthor);
-        }
-    }
+        
+           return bookService.getBookByAuthor(author);
 
+      
+        
+        
+    }
 
 }
