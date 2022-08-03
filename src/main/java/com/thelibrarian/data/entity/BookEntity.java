@@ -1,5 +1,6 @@
 package com.thelibrarian.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,8 @@ public class BookEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id_book;
 
     private String title;
     private Date publishedDate;
@@ -29,20 +30,22 @@ public class BookEntity {
     private int pageCount;
     private String language;
 
+    private int author;
+    private int booksOfUser;
+    private Long id_category;
 
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<AuthorEntity> author;
+    @JsonBackReference
+    @OneToMany(targetEntity = AuthorEntity.class,mappedBy="id", fetch = FetchType.LAZY)
+    private List<AuthorEntity> authors;
+
+    @ManyToOne
+    @JoinColumn(name="id_category", insertable = false,updatable = false)
+    private CategoryEntity category;
 
 
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<BookEntity> category;
-
-
-    @OneToOne
-    @JoinColumn(name = "id")
-    private BooksOfUserEntity booksOfUser;
+    @JsonBackReference
+    @OneToMany(targetEntity = BooksOfUserEntity.class,mappedBy="id", fetch = FetchType.LAZY)
+    private List<BooksOfUserEntity> booksOfUsers;
 
 
 }

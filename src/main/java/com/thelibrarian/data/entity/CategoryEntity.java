@@ -16,8 +16,13 @@ import javax.persistence.*;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
+
+
+
+    /*@OneToMany(targetEntity = CategoryEntity.class,mappedBy="id_book", orphanRemoval = false, fetch = FetchType.LAZY)
+    private List<CategoryEntity> categories;*/
 }
