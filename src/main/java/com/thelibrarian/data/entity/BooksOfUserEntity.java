@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="BooksOfUsers")
+@Table(name="USER_BOOKS")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BooksOfUserEntity {
@@ -25,7 +25,7 @@ public class BooksOfUserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Date adquisitionDate;
+    private Date acquisitionDate;
 
 
 

@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name="Books")
+@Table(name="BOOKS")
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookEntity {
@@ -21,14 +22,23 @@ public class BookEntity {
     private Long id;
 
     private String title;
-    private long idAuthor;
     private Date publishedDate;
     private String isbn;
     private String description;
     private String imageLinks;
     private int pageCount;
-    private long idCategory;
     private String language;
+
+
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<AuthorEntity> author;
+
+
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<BookEntity> category;
+
 
     @OneToOne
     @JoinColumn(name = "id")
