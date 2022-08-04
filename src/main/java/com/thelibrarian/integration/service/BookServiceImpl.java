@@ -1,6 +1,8 @@
 package com.thelibrarian.integration.service;
 
 import com.thelibrarian.integration.dto.BookDataDto;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,14 +11,18 @@ import org.springframework.web.client.RestTemplate;
 public class BookServiceImpl implements BookService {
 
     RestTemplate restTemplate = new RestTemplate();
-    String url = "https://www.googleapis.com/books/v1/volumes?printType=books&q=";
+
+
+    String url = "https://www.googleapis.com/books/v1/volumes?q=";
+
+    final String APIKEY = "&key=AIzaSyD6yt9yJuDcLr8ZVAPLiKGWoBzWgQtJHN4&maxResults<=11";
 
     @Override
     public ResponseEntity<BookDataDto> getBook() {
 
-        url += "a";
+        String urlGetBook = url + "a" + APIKEY;
 
-        BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
+        BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
 
         if (bookDataDto == null) {
 
@@ -24,15 +30,15 @@ public class BookServiceImpl implements BookService {
         }
 
         return ResponseEntity.ok().body(bookDataDto);
-       
+
     }
-@Override
+
+    @Override
     public ResponseEntity<BookDataDto> searchBookByTitleAuthor(String title, String author) {
 
-        url += "+inauthor:" + author + "+intitle:" + title;
+        String urlTitleAuthor = url + "+inauthor:" + author + "+intitle:" + title + APIKEY;
 
-        BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
-      
+        BookDataDto bookDataDto = restTemplate.getForObject(urlTitleAuthor, BookDataDto.class);
 
         if (bookDataDto == null) {
             return ResponseEntity.notFound().build();
@@ -42,41 +48,39 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public ResponseEntity <BookDataDto> getBookByIsbn(String isbn) {
+    public ResponseEntity<BookDataDto> getBookByIsbn(String isbn) {
 
-        url+="isbn:"+isbn;
+      String urlIsbn = url + "isbn:" + isbn + APIKEY;
 
-        BookDataDto bookDataDtoIsbn = restTemplate.getForObject(url, BookDataDto.class);
+        BookDataDto bookDataDtoIsbn = restTemplate.getForObject(urlIsbn, BookDataDto.class);
 
-         if(bookDataDtoIsbn == null){
+        if (bookDataDtoIsbn == null) {
 
             return ResponseEntity.notFound().build();
 
-        }else{
-
-            return ResponseEntity.ok().body(bookDataDtoIsbn);
-
         }
 
-       
+        return ResponseEntity.ok().body(bookDataDtoIsbn);
+
     }
 
-@Override
-    public ResponseEntity<BookDataDto> getBookByAuthor(String Author){
+    @Override
+    public ResponseEntity<BookDataDto> getBookByAuthor(String Author) {
 
-         url += "+inauthor:" + Author;
+        String urlAuthor = url + "+inauthor:" + Author + APIKEY;
 
-        BookDataDto bookDataDto = restTemplate.getForObject(url, BookDataDto.class);
+      //  BookDataDto bookDataDto = new BookDataDto();
 
+       BookDataDto bookDataDto = restTemplate.getForObject(urlAuthor, BookDataDto.class);
 
+       
 
         if (bookDataDto == null) {
 
             return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(bookDataDto);
         }
-    }
 
+        return new ResponseEntity<BookDataDto>(bookDataDto, HttpStatus.OK);
+    }
 
 }
