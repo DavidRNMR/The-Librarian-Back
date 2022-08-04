@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 public class BooksOfUserEntity {
 
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /*@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
     private Long id;
 
     private Date acquisitionDate;

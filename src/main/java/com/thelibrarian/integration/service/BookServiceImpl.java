@@ -73,7 +73,7 @@ public class BookServiceImpl implements BookService {
 
        BookDataDto bookDataDto = restTemplate.getForObject(urlAuthor, BookDataDto.class);
 
-       
+
 
         if (bookDataDto == null) {
 

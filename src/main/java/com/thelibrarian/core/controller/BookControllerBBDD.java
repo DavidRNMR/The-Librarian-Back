@@ -1,6 +1,5 @@
 package com.thelibrarian.core.controller;
 
-import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.service.BookServiceBBDD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

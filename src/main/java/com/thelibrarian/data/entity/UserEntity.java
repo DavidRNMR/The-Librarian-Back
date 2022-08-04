@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   /* @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)*/
     private Long id;
 
     private String name;
@@ -31,8 +31,8 @@ public class UserEntity {
     private String password;
     private boolean suscription;
 
-    @OneToMany
+/*    @OneToMany
     @JoinColumn(name = "id")
     private List<BooksOfUserEntity> booksOfUser;
-    
+    */
 }

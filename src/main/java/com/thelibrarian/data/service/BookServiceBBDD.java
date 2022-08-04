@@ -1,11 +1,9 @@
 package com.thelibrarian.data.service;
 
-import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.repository.IBookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
