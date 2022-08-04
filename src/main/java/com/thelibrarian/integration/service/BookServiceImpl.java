@@ -2,6 +2,7 @@ package com.thelibrarian.integration.service;
 
 import com.thelibrarian.integration.dto.BookDataDto;
 
+import com.thelibrarian.integration.utilities.Utilities;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,15 +13,14 @@ public class BookServiceImpl implements BookService {
 
     RestTemplate restTemplate = new RestTemplate();
 
-
     String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
-    final String APIKEY = "&key=AIzaSyD6yt9yJuDcLr8ZVAPLiKGWoBzWgQtJHN4&maxResults<=11";
+    final String APIKEY = "&key=AIzaSyD6yt9yJuDcLr8ZVAPLiKGWoBzWgQtJHN4&maxResults<=36";
 
     @Override
-    public ResponseEntity<BookDataDto> getBook() {
+    public ResponseEntity<BookDataDto> getRandomBooks() {
 
-        String urlGetBook = url + "a" + APIKEY;
+        String urlGetBook = url + Utilities.generateRandomLetter() + APIKEY;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
 
