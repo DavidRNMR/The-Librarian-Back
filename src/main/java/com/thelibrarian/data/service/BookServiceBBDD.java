@@ -1,4 +1,4 @@
-/*
+
 package com.thelibrarian.data.service;
 
 import com.thelibrarian.data.entity.BookEntity;
@@ -47,4 +47,4 @@ public class BookServiceBBDD  {
     }
 
 }
-*/
+

@@ -1,4 +1,3 @@
-/*
 package com.thelibrarian.data.entity;
 
 import java.util.List;
@@ -17,7 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//@Entity
+@Entity
 @Table(name="USERS")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,12 +33,13 @@ public class UserEntity {
     private String password;
     private Boolean subscription;
 
-    */
-/*@JsonBackReference
+   /* @JsonBackReference
     @OneToMany(targetEntity = BooksOfUserEntity.class,mappedBy = "id_user")
-    private List<BooksOfUserEntity> booksOfUser;*//*
-
-
+    private List<BooksOfUserEntity> booksOfUser;*/
 }
 
-*/
+
+
+
+
+

@@ -1,4 +1,3 @@
-/*
 package com.thelibrarian.data.entity;
 
 import lombok.AllArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-//@Entity
+@Entity
 @Data
 @Table(name="BOOKS_CATEGORY")
 @NoArgsConstructor
@@ -20,4 +19,4 @@ public class BooksCategory {
     private Long id_category;
 
 }
-*/
+

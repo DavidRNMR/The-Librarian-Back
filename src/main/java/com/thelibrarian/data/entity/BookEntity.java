@@ -1,4 +1,3 @@
-/*
 package com.thelibrarian.data.entity;
 
 
@@ -10,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-//@Entity
+@Entity
 @Table(name="BOOKS")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,16 +29,16 @@ public class BookEntity {
     private String language;
 
 
-    */
-/*@OneToMany
+   /* @OneToMany
     private List<AuthorEntity> authors;
 
     @OneToMany
-    private List<CategoryEntity> categories;*//*
+    private List<CategoryEntity> categories;*/
 
 
     // @OneToOne
     // private List<BooksOfUserEntity> booksOfUsers;
 
 
-}*/
+}
+

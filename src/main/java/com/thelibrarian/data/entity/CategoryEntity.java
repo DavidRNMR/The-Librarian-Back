@@ -1,4 +1,4 @@
-/*
+
 package com.thelibrarian.data.entity;
 
 
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 
-//@Entity
+@Entity
 @Data
 @Table(name="CATEGORY")
 @NoArgsConstructor
@@ -26,4 +26,4 @@ public class CategoryEntity {
 
 
 }
-*/
+

@@ -1,17 +1,13 @@
-/*
 package com.thelibrarian.data.entity;
 
 import java.util.Date;
-import java.util.List;
-
 import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-//@Entity
+@Entity
 @Table(name="RESERVES")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,17 +30,11 @@ public class BooksOfUserEntity {
     private int idbook;
 
 
-
-   */
-/* @ManyToOne
-    private UserEntity user;*//*
-
-
-   */
-/* @OneToOne(mappedBy=)
-    private UserEntity user;*//*
+   /* @ManyToOne
+    private UserEntity user;*/
 
 
 }
 
-*/
+
+

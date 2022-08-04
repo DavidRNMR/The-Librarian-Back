@@ -1,4 +1,4 @@
-/*
+
 package com.thelibrarian.core.controller;
 
 import com.thelibrarian.data.entity.BookEntity;
@@ -41,4 +41,4 @@ import java.util.List;
             return  ResponseEntity.ok().body(book1);
         }
 }
-*/
+
