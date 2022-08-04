@@ -15,21 +15,20 @@ public class BookController {
     BookServiceImpl bookService;
 
 
-
     @GetMapping(value = "/get")
     public ResponseEntity<BookDataDto> getBook() {
-       
-        return bookService.getRandomBooks();
-    }
 
+        return bookService.getRandomBooks();
+
+    }
 
 
     @GetMapping(value = "/getByTitleAuthor/{title}/{author}")
     public ResponseEntity<BookDataDto> getBookByTitleAuthor(@PathVariable String title, @PathVariable String author) {
-     
-        return bookService.searchBookByTitleAuthor(title, author);
-    }
 
+        return bookService.searchBookByTitleAuthor(title, author);
+
+    }
 
 
     @GetMapping(value = "/searchByIsbn/{isbn}")
@@ -40,16 +39,18 @@ public class BookController {
     }
 
 
-
     @GetMapping("/author/{author}")
     public ResponseEntity<BookDataDto> findByAuthor(@PathVariable String author) {
-        
-        
-           return bookService.getBookByAuthor(author);
 
-      
-        
-        
+        return bookService.getBookByAuthor(author);
+
+    }
+
+    @GetMapping(value = "searchByTitle/{title}")
+    public ResponseEntity<BookDataDto> findByTitle(@PathVariable String title) {
+
+        return bookService.getBookByTitle(title);
+
     }
 
 }

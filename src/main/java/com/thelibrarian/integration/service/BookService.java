@@ -9,4 +9,5 @@ public interface BookService {
     public ResponseEntity<BookDataDto> searchBookByTitleAuthor(String title, String author);
     public ResponseEntity<BookDataDto> getBookByIsbn(String isbn);
     public ResponseEntity<BookDataDto> getBookByAuthor(String author);
+    public ResponseEntity<BookDataDto> getBookByTitle(String title);
 }
