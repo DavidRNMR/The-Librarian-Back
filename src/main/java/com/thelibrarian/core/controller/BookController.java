@@ -19,7 +19,7 @@ public class BookController {
     @GetMapping(value = "/get")
     public ResponseEntity<BookDataDto> getBook() {
        
-        return bookService.getBook();
+        return bookService.getRandomBooks();
     }
 
 
