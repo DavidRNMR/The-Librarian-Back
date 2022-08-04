@@ -39,7 +39,7 @@ public class BookServiceBBDD  {
 
         if(bookDao.existsById(id)){
 
-            book.setId(id);
+            book.setId_book(id);
 
             return bookDao.save(book);
         }
