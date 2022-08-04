@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BookController {
+public class BookControllerApi {
 
     @Autowired
     BookServiceImpl bookService;
