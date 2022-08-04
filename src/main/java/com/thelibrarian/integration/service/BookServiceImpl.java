@@ -83,4 +83,18 @@ public class BookServiceImpl implements BookService {
         return new ResponseEntity<BookDataDto>(bookDataDto, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<BookDataDto> getBookByTitle(String title) {
+
+        String urlTitle = url + "+intitle:" + title + APIKEY;
+
+        BookDataDto bookDataDto = restTemplate.getForObject(urlTitle, BookDataDto.class);
+
+        if (bookDataDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(bookDataDto);
+    }
+
 }
