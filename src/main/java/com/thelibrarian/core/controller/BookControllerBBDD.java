@@ -1,5 +1,7 @@
+/*
 package com.thelibrarian.core.controller;
 
+import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.service.BookServiceBBDD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,16 +21,6 @@ import java.util.List;
         return bookService.findAll();
     }
 
-    @GetMapping("/ByName/{name}")
-    public BookEntity findByAuthor(@PathVariable String name) {
-
-        return bookService.findByAuthor(name);
-    }
-
-    @GetMapping("/ByISBN/{ISBN}")
-    public BookEntity findByIsbn(@PathVariable String isbn) {
-        return bookService.findByIsbn(isbn);
-    }
 
     @PostMapping("/create")
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -42,17 +34,11 @@ import java.util.List;
         bookService.delete(id);
     }
 
-    @GetMapping("/ByTitleAndAuthor/{title}/{author}")
-    public BookEntity findByTitleAndAuthor(String title, String nameAuthor){
-
-        return bookService.findByTitleAndAuthor(title,nameAuthor);
-    }
-
     @PutMapping("/update/{id}")
     public ResponseEntity<BookEntity> Update (@RequestBody BookEntity book, @PathVariable Long id){
         BookEntity book1 = bookService.Update(book,id);
 
             return  ResponseEntity.ok().body(book1);
         }
-
 }
+*/

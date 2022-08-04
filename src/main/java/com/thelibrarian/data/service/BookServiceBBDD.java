@@ -1,5 +1,7 @@
+/*
 package com.thelibrarian.data.service;
 
+import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.repository.IBookDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,28 +39,12 @@ public class BookServiceBBDD  {
 
         if(bookDao.existsById(id)){
 
-            book.setId_book(id);
+            book.setId(id);
 
             return bookDao.save(book);
         }
         return null;
     }
 
-    public BookEntity findByTitleAndAuthor(String title, String nameAuthor){
-
-        return bookDao.findByTitleAndAuthor(title, nameAuthor);
-
-    }
-
-    public BookEntity findByAuthor(String nameAuthor){
-
-        return bookDao.findByAuthor(nameAuthor);
-    }
-
-
-    public BookEntity findByIsbn(String isbn){
-
-       return bookDao.findByIsbn(isbn);
-    }
-
 }
+*/
