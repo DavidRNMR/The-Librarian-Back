@@ -1,6 +1,5 @@
 package com.thelibrarian.data.service;
 
-import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.repository.IUser;
 import org.apache.catalina.User;
