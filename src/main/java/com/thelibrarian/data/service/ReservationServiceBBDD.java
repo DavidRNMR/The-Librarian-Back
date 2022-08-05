@@ -37,8 +37,10 @@ public class ReservationServiceBBDD implements IReserve {
 
             for (ReservationEntity reservationEntity : reserveListOfUser) {
     
-                System.out.println("Id usuario" + reservationEntity.getId_usuario());
-                System.out.println("Id libro" + reservationEntity.getId_book());
+            //    System.out.println("Id usuario" + reservationEntity.getId_usuario());
+            //    System.out.println("Id libro" + reservationEntity.getId_book());
+
+
 
                 if (reservationEntity.getIs_reservado()) {
 
@@ -54,19 +56,19 @@ public class ReservationServiceBBDD implements IReserve {
     
     
             if(count<3){
-                System.out.println("Reserva completa OK " + booking.toString());
+                // System.out.println("Reserva completa OK " + booking.toString());
                 reserve.save(booking);
                 return ResponseEntity.ok().body(booking);
             }else{
     
-                System.out.println("Reserva del count <3 Falla");
+                // System.out.println("Reserva del count <3 Falla");
                 return ResponseEntity.notFound().build();
             }
     
 
         }else{
             
-            System.out.println("Reserva  Falla");
+            // System.out.println("Reserva  Falla");
             return ResponseEntity.notFound().build();
         }
 
