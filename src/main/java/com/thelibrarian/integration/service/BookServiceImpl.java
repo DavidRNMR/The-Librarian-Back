@@ -15,7 +15,7 @@ public class BookServiceImpl implements BookService {
 
     String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
-    final String APIKEY = "&key=AIzaSyD6yt9yJuDcLr8ZVAPLiKGWoBzWgQtJHN4&maxResults<=36";
+    final String APIKEY = "&key=AIzaSyD6yt9yJuDcLr8ZVAPLiKGWoBzWgQtJHN4&maxResults=36";
 
     @Override
     public ResponseEntity<BookDataDto> getRandomBooks() {

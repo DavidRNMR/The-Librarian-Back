@@ -9,33 +9,34 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BookServiceBBDD  {
+public class BookServiceBBDD implements IBookService {
 
     @Autowired
     IBookDao bookDao;
 
 
-    public List<BookEntity> findAll() {
+    public List <BookEntity> findAll(){
 
         return bookDao.findAll();
     }
+
 
     public void save(BookEntity book) {
 
         bookDao.save(book);
     }
 
-    public BookEntity findOne(Long id) {
+    public BookEntity findById(Integer id) {
 
         return bookDao.findById(id).orElse(null);
     }
 
-    public void delete(Long id) {
+    public void delete(Integer id) {
 
         bookDao.deleteById(id);
 
     }
-    public BookEntity Update (BookEntity book, Long id){
+    public BookEntity Update (BookEntity book, Integer id){
 
         if(bookDao.existsById(id)){
 
@@ -46,5 +47,12 @@ public class BookServiceBBDD  {
         return null;
     }
 
+    @Override
+    public BookEntity findByIsbn(String isbn) {
+
+        return bookDao.findByIsbn(isbn);
+
+    }
 }
+
 
