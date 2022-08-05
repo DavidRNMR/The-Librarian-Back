@@ -3,13 +3,14 @@ package com.thelibrarian.data.service;
 import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.repository.IUser;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceBBDD {
+public class UserServiceBBDD implements IUserService {
 
     @Autowired
     IUser user;
@@ -23,4 +24,23 @@ public class UserServiceBBDD {
 
         return user.findAll();
     }
+
+    public UsersEntity insert (UsersEntity userEntity){
+
+        return user.save(userEntity);
+    }
+
+    public UsersEntity Update (UsersEntity users, Integer id){
+
+        if(user.existsById(id)){
+
+            users.setId(id);
+
+            return user.save(users);
+        }
+            return null;
+
+    }
+
+
 }

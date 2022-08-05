@@ -26,7 +26,7 @@ public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_book;
+    private Integer id_book;
 
     private String title;
     private Date publishedDate;
