@@ -52,10 +52,14 @@ class TheLibrarianApplicationTests {
 		String authorActualName = "";
 
 		for (BookDto book : booksByAuthor) {
-			if (book.getVolumeInfo().getAuthors()[0].contains(author)) {
-				authorActualName = book.getVolumeInfo().getAuthors()[0];
+			if (book.getVolumeInfo().getAuthors() != null) {
+				for (int i = 0; i < book.getVolumeInfo().getAuthors().length; i++) {
+					if (book.getVolumeInfo().getAuthors()[i].contains(author)) {
+						authorActualName = book.getVolumeInfo().getAuthors()[i];
+					}
+					Assertions.assertEquals(authorActualName, book.getVolumeInfo().getAuthors()[1]);
+				}
 			}
-			Assertions.assertEquals(authorActualName, book.getVolumeInfo().getAuthors()[0]);
 		}
 	}
 

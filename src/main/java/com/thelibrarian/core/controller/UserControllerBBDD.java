@@ -1,10 +1,8 @@
 package com.thelibrarian.core.controller;
 
-import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.service.UserServiceBBDD;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
