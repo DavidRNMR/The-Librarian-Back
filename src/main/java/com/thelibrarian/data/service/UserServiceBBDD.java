@@ -12,7 +12,7 @@ import java.util.List;
 public class UserServiceBBDD implements IUserService {
 
     @Autowired
-    IUser user;
+    private IUser user;
 
     public UsersEntity findById(Integer id) {
 
@@ -24,9 +24,9 @@ public class UserServiceBBDD implements IUserService {
         return user.findAll();
     }
 
-    public UsersEntity insert (UsersEntity userEntity){
+    public void save (UsersEntity userEntity){
 
-        return user.save(userEntity);
+        user.save(userEntity);
     }
 
     public UsersEntity Update (UsersEntity users, Integer id){
