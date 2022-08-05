@@ -26,11 +26,11 @@ public class UserControllerBBDD {
     }
 
     @PostMapping("/createUser")
-    @ResponseStatus(code= HttpStatus.CREATED)
-    public void insert (@RequestBody UsersEntity user){
-
-        System.out.println(user);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void create (@RequestBody UsersEntity user) {
+    System.out.println(user);
         userService.save(user);
+
     }
 
     @GetMapping("/getAllUsers")
