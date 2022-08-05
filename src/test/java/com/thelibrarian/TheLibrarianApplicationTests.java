@@ -90,4 +90,11 @@ class TheLibrarianApplicationTests {
         }
     }
 
+    @Test
+    @DisplayName("Test book by isbn")
+    public void getBookByIsbn() {
+        booksArray = bookService.getBookByIsbn("9780738702865").getBody().getItems();
+        Assertions.assertEquals(booksArray[0].getVolumeInfo().getIndustryIdentifiers()[1].get("identifier"), "9780738702865");
+    }
+
 }
