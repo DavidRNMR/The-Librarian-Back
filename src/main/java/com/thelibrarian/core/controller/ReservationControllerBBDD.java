@@ -30,7 +30,7 @@ public class ReservationControllerBBDD {
 
 
     @PostMapping("/createReserve")
-    public void createReserve(BookingDto booking){
+    public void createReserve(ReservationEntity booking){
 
           reservationService.createReserve(booking);
     }

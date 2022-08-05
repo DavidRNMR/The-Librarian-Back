@@ -1,5 +1,6 @@
 package com.thelibrarian.core.controller;
 
+import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.service.UserServiceBBDD;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -24,11 +25,11 @@ public class UserControllerBBDD {
     }
 
     @PostMapping("/createUser")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public void create (@RequestBody UsersEntity user) {
-    System.out.println(user);
-        userService.save(user);
+    @ResponseStatus(code= HttpStatus.CREATED)
+    public void insert (@RequestBody UsersEntity user){
 
+        System.out.println(user);
+        userService.save(user);
     }
 
     @GetMapping("/getAllUsers")
