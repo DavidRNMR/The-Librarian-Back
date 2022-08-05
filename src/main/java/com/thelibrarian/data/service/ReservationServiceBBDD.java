@@ -58,6 +58,8 @@ public class ReservationServiceBBDD implements IReserve {
     
             if(count<3){
                 // System.out.println("Reserva completa OK " + booking.toString());
+
+                //Aquí deberemos crear un metodo mapper para reutilizarlo siempre
                 ReservationEntity reservationEntity = new ReservationEntity();
 
                 reservationEntity.setId(booking.getId());
