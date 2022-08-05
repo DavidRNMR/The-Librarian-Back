@@ -1,5 +1,6 @@
 package com.thelibrarian.core.controller;
 
+import com.thelibrarian.data.dto.BookingDto;
 import com.thelibrarian.data.entity.ReservationEntity;
 import com.thelibrarian.data.repository.IBookDao;
 import com.thelibrarian.data.service.ReservationServiceBBDD;
@@ -28,7 +29,7 @@ public class ReservationControllerBBDD {
 
 
     @PostMapping("/createReserve")
-    public void createReserve(ReservationEntity booking){
+    public void createReserve(BookingDto booking){
 
 
 

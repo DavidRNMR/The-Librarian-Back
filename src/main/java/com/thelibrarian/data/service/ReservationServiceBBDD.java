@@ -1,5 +1,6 @@
 package com.thelibrarian.data.service;
 
+import com.thelibrarian.data.dto.BookingDto;
 import com.thelibrarian.data.entity.ReservationEntity;
 import com.thelibrarian.data.repository.IReserve;
 import com.thelibrarian.data.repository.IReserveJpa;
@@ -24,7 +25,7 @@ public class ReservationServiceBBDD implements IReserve {
     }
 
     @Override
-    public ResponseEntity<ReservationEntity> createReserve(ReservationEntity booking) {
+    public ResponseEntity <BookingDto> createReserve(BookingDto booking) {
 
         
 
@@ -57,7 +58,17 @@ public class ReservationServiceBBDD implements IReserve {
     
             if(count<3){
                 // System.out.println("Reserva completa OK " + booking.toString());
-                reserve.save(booking);
+
+                //Aquí deberemos crear un metodo mapper para reutilizarlo siempre
+                ReservationEntity reservationEntity = new ReservationEntity();
+
+                reservationEntity.setId(booking.getId());
+                reservationEntity.setId_book(booking.getId_book());
+                reservationEntity.setId_usuario(booking.getId_usuario());
+                reservationEntity.setIs_reservado(booking.getIs_reservado());
+
+                reserve.save(reservationEntity);
+
                 return ResponseEntity.ok().body(booking);
             }else{
     
