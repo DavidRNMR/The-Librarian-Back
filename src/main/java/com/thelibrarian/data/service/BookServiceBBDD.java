@@ -12,7 +12,7 @@ import java.util.List;
 public class BookServiceBBDD implements IBookService {
 
     @Autowired
-    IBookDao bookDao;
+    private IBookDao bookDao;
 
 
     public List <BookEntity> findAll(){

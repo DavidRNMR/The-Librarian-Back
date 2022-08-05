@@ -2,6 +2,7 @@ package com.thelibrarian.data.service;
 
 import com.thelibrarian.data.dto.BookingDto;
 import com.thelibrarian.data.entity.ReservationEntity;
+import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.repository.IReserve;
 import com.thelibrarian.data.repository.IReserveJpa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +85,19 @@ public class ReservationServiceBBDD implements IReserve {
         }
 
 
-          
+    }
 
-      
+    public ReservationEntity Update (ReservationEntity reservation, Integer id) {
+
+        if (reserve.existsById(id)) {
+
+            reservation.setId(id);
+
+            return reserve.save(reservation);
+
+        }
+        return null;
+
 
     }
-    
-
 }

@@ -29,7 +29,8 @@ public class UserControllerBBDD {
     @ResponseStatus(code= HttpStatus.CREATED)
     public void insert (@RequestBody UsersEntity user){
 
-         userService.insert(user);
+        System.out.println(user);
+        userService.save(user);
     }
 
     @GetMapping("/getAllUsers")
