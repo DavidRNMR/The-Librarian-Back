@@ -1,15 +1,14 @@
 package com.thelibrarian.data.service;
 
-import com.thelibrarian.data.dto.BookingDto;
-import com.thelibrarian.data.entity.ReservationEntity;
-import com.thelibrarian.data.entity.UsersEntity;
-import com.thelibrarian.data.repository.IReserve;
-import com.thelibrarian.data.repository.IReserveJpa;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.thelibrarian.data.entity.ReservationEntity;
+import com.thelibrarian.data.repository.IReserve;
+import com.thelibrarian.data.repository.IReserveJpa;
 
 @Service
 public class ReservationServiceBBDD implements IReserve {
@@ -26,38 +25,32 @@ public class ReservationServiceBBDD implements IReserve {
     }
 
     @Override
-    public ResponseEntity <BookingDto> createReserve(BookingDto booking) {
-
-        
+    public ResponseEntity<ReservationEntity> createReserve(ReservationEntity booking) {
 
         List<ReservationEntity> reserveListOfUser = userService.findById(booking.getId_usuario()).getReservation();
 
         int count = 0;
 
-
-        if(reserveListOfUser!= null){
+        if (reserveListOfUser != null) {
 
             for (ReservationEntity reservationEntity : reserveListOfUser) {
-    
-            //    System.out.println("Id usuario" + reservationEntity.getId_usuario());
-            //    System.out.println("Id libro" + reservationEntity.getId_book());
 
-
+                // System.out.println("Id usuario" + reservationEntity.getId_usuario());
+                // System.out.println("Id libro" + reservationEntity.getId_book());
 
                 if (reservationEntity.getIs_reservado()) {
 
                     count++;
-    
+
                     if (count == 3) {
                         break;
                     }
-    
+
                 }
-    
+
             }
-    
-    
-            if(count<3){
+
+            if (count < 3) {
                 // System.out.println("Reserva completa OK " + booking.toString());
 
                 //Aquí deberemos crear un metodo mapper para reutilizarlo siempre
@@ -71,23 +64,21 @@ public class ReservationServiceBBDD implements IReserve {
                 reserve.save(reservationEntity);
 
                 return ResponseEntity.ok().body(booking);
-            }else{
-    
+            } else {
+
                 // System.out.println("Reserva del count <3 Falla");
                 return ResponseEntity.notFound().build();
             }
-    
 
-        }else{
-            
-            // System.out.println("Reserva  Falla");
+        } else {
+
+            // System.out.println("Reserva Falla");
             return ResponseEntity.notFound().build();
         }
 
-
     }
 
-    public ReservationEntity Update (ReservationEntity reservation, Integer id) {
+    public ReservationEntity Update(ReservationEntity reservation, Integer id) {
 
         if (reserve.existsById(id)) {
 
@@ -98,6 +89,6 @@ public class ReservationServiceBBDD implements IReserve {
         }
         return null;
 
-
     }
+
 }

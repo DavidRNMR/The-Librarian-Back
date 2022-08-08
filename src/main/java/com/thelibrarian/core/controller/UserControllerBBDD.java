@@ -1,47 +1,59 @@
 package com.thelibrarian.core.controller;
 
-import com.thelibrarian.data.entity.UsersEntity;
-import com.thelibrarian.data.service.UserServiceBBDD;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.thelibrarian.data.entity.UsersEntity;
+import com.thelibrarian.data.service.UserServiceBBDD;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
+// @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
+@RequestMapping("/users")
 public class UserControllerBBDD {
 
     @Autowired
-    UserServiceBBDD userService;
+    private @NonNull UserServiceBBDD usuService;
 
-    @GetMapping("/findOneUser/{id}")
-    public UsersEntity findById(Integer id) {
-
-        return userService.findById(id);
-    }
-
-    @PostMapping("/createUser")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public void create (@RequestBody UsersEntity user) {
-    System.out.println(user);
-        userService.save(user);
-
-    }
-
-    @GetMapping("/getAllUsers")
+    @GetMapping
     public List<UsersEntity> findAll() {
-        return userService.findAll();
+        return usuService.findAll();
     }
 
-    @PutMapping("/updateUser/{id}")
-    public ResponseEntity<UsersEntity> Update(@RequestBody UsersEntity user, @PathVariable Integer id) {
-        UsersEntity user1 = userService.Update(user, id);
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public UsersEntity insert(@RequestBody UsersEntity user) throws NoSuchAlgorithmException{
+        return usuService.insert(user);
 
-        return ResponseEntity.ok().body(user1);
     }
 
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsersEntity> update(@RequestBody @Valid UsersEntity evento, @PathVariable int id) {
+        UsersEntity e = usuService.update(evento, id);
+        if(e == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok().body(e);
+        }
+    }
 
 }

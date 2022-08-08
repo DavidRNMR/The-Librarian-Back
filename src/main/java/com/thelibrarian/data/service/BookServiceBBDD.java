@@ -21,9 +21,9 @@ public class BookServiceBBDD implements IBookService {
     }
 
 
-    public void save(BookEntity book) {
+    public BookEntity save(BookEntity book) {
 
-        bookDao.save(book);
+        return bookDao.save(book);
     }
 
     public BookEntity findById(Integer id) {
