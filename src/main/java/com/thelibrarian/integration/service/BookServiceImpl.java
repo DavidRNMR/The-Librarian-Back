@@ -2,13 +2,16 @@ package com.thelibrarian.integration.service;
 
 import com.thelibrarian.integration.dto.BookDataDto;
 
+import com.thelibrarian.integration.dto.BookDto;
 import com.thelibrarian.integration.utilities.Utilities;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -73,7 +76,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return new ResponseEntity<BookDataDto>(checkCorrectDataInsert(bookDataDto), HttpStatus.OK);
+        return new ResponseEntity<>(checkCorrectDataInsert(bookDataDto), HttpStatus.OK);
     }
 
     @Override
@@ -148,6 +151,23 @@ public class BookServiceImpl implements BookService {
 
             }
         }
+
+        return bookDataDto;
+    }
+
+    private BookDataDto checkAuthorExistence(BookDataDto bookDataDto) {
+
+        List<BookDto> booksList = new ArrayList<>();
+
+        for (int i = 0; i < bookDataDto.getItems().length; i++) {
+            if (bookDataDto.getItems()[i].getVolumeInfo().getAuthors() != null) {
+                booksList.add(bookDataDto.getItems()[i]);
+            }
+        }
+
+        BookDto[] booksArray = new BookDto[booksList.size()];
+        booksList.toArray(booksArray);
+        bookDataDto.setItems(booksList.toArray(booksArray));
 
         return bookDataDto;
     }
