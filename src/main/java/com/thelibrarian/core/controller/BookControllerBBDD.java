@@ -1,6 +1,8 @@
 
 package com.thelibrarian.core.controller;
 
+import com.lowagie.text.DocumentException;
+import com.thelibrarian.BookPDF;
 import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.service.BookServiceBBDD;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
     @RestController
@@ -52,6 +59,23 @@ import java.util.List;
         public BookEntity findByIsbn(String isbn) {
 
             return bookService.findByIsbn(isbn);
+
+        }
+
+        @GetMapping("/book/export/pdf")
+        public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+            response.setContentType("application/pdf");
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+
+            String headerKey = "Content-Disposition";
+            String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+            response.setHeader(headerKey, headerValue);
+
+            List<BookEntity> list = bookService.findAll();
+
+            BookPDF exporter = new BookPDF(list);
+            exporter.export(response);
 
         }
     }
