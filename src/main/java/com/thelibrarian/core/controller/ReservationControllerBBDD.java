@@ -1,7 +1,14 @@
 package com.thelibrarian.core.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import com.lowagie.text.DocumentException;
+import com.thelibrarian.data.entity.UsersEntity;
+import com.thelibrarian.integration.ReservationPDF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +27,8 @@ import com.thelibrarian.data.service.ReservationServiceBBDD;
 
 
 import lombok.RequiredArgsConstructor;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @RequiredArgsConstructor
@@ -53,6 +62,23 @@ public class ReservationControllerBBDD {
         ReservationEntity reservation1 = reservationService.Update(reservation, id);
 
         return ResponseEntity.ok().body(reservation1);
+    }
+
+    @GetMapping("/reserve/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<ReservationEntity> list = reservationService.findAll();
+
+        ReservationPDF exporter = new ReservationPDF(list);
+        exporter.exportUser(response);
+
     }
     
 }
