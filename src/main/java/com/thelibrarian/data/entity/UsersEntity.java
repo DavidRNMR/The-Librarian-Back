@@ -8,26 +8,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
-@Table(name = "USERS")
-@NoArgsConstructor
+@Data @NoArgsConstructor
 @AllArgsConstructor
 public class UsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Null
     private Integer id;
-    
-    private String name;
-    private String mail;
+    @NotNull(message = "El nombre es obligatorio")
+    private String nombre;
+    @NotNull
+    @Email
+    private String correo;
+    @NotEmpty
     private String password;
 
 

@@ -25,9 +25,8 @@ import java.util.List;
 
         @PostMapping("/createBook")
         @ResponseStatus(code = HttpStatus.CREATED)
-        public void create(@RequestBody BookEntity book) {
-            System.out.println(book);
-            bookService.save(book);
+        public BookEntity insert(@RequestBody BookEntity book) {
+           return bookService.save(book);
         }
 
         @DeleteMapping("/deleteBook/{id}")
