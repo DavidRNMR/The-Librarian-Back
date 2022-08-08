@@ -32,9 +32,9 @@ public class UserServiceBBDD {
         return usuRepo.save(u);
     }
 
-    // public UsersEntity login(String correo, String password) throws NoSuchAlgorithmException {
-    //     return usuRepo.findByCorreoAndPassword(correo, encodePassword(password));
-    // }
+    public UsersEntity login(String correo, String password) throws NoSuchAlgorithmException {
+        return usuRepo.findByCorreoAndPassword(correo, encodePassword(password));
+    }
 
     public UsersEntity update(UsersEntity e, int id) {
         if(usuRepo.existsById(id)) {
