@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public ResponseEntity<BookDataDto> getRandomBooks() {
 
-        String urlGetBook = url + Utilities.generateRandomLetter() + APIKEY;
+        String urlGetBook = url + "flowers" + APIKEY;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
 
@@ -93,7 +93,7 @@ public class BookServiceImpl implements BookService {
     private BookDataDto checkCorrectDataInsert(BookDataDto bookDataDto) {
 
         for (int i = 0; i < bookDataDto.getItems().length; i++) {
-            System.out.println(bookDataDto.getItems()[i].getVolumeInfo().getTitle());
+
             if (bookDataDto.getItems()[i].getVolumeInfo().getTitle() == null) {
                 bookDataDto.getItems()[i].getVolumeInfo().setTitle("No title available.");
             }
@@ -126,12 +126,26 @@ public class BookServiceImpl implements BookService {
                 bookDataDto.getItems()[i].getVolumeInfo().setLanguage("Language not specified");
             }
 
-            if (bookDataDto.getItems()[i].getVolumeInfo().getIndustryIdentifiers() == null) {
+            if (bookDataDto.getItems()[i].getVolumeInfo().getIndustryIdentifiers() == null || bookDataDto.getItems()[i].getVolumeInfo().getIndustryIdentifiers().length == 1) {
                 Map<String, String> isbn = new HashMap<>();
                 isbn.put("identifier", "No isbn available.");
                 Map<String, String>[] industryIdentifiers = new HashMap[1];
                 industryIdentifiers[0] = isbn;
                 bookDataDto.getItems()[i].getVolumeInfo().setIndustryIdentifiers(industryIdentifiers);
+            } else {
+                for (Map<String, String> isbn : bookDataDto.getItems()[i].getVolumeInfo().getIndustryIdentifiers()) {
+
+                    if (isbn.get("type").equals("ISBN_13")) {
+                        Map<String, String> newIsbn = new HashMap<>();
+                        newIsbn.put("identifier", isbn.get("identifier"));
+                        Map<String, String>[] industryIdentifiers = new HashMap[1];
+                        industryIdentifiers[0] = newIsbn;
+                        bookDataDto.getItems()[i].getVolumeInfo().setIndustryIdentifiers(industryIdentifiers);
+
+                        break;
+                    }
+                }
+
             }
         }
 
