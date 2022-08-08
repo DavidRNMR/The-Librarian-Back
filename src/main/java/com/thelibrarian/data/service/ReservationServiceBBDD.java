@@ -1,15 +1,14 @@
 package com.thelibrarian.data.service;
 
-import com.thelibrarian.data.dto.BookingDto;
-import com.thelibrarian.data.entity.ReservationEntity;
-import com.thelibrarian.data.entity.UsersEntity;
-import com.thelibrarian.data.repository.IReserve;
-import com.thelibrarian.data.repository.IReserveJpa;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.thelibrarian.data.entity.ReservationEntity;
+import com.thelibrarian.data.repository.IReserve;
+import com.thelibrarian.data.repository.IReserveJpa;
 
 @Service
 public class ReservationServiceBBDD implements IReserve {
@@ -26,7 +25,7 @@ public class ReservationServiceBBDD implements IReserve {
     }
 
     @Override
-    public ResponseEntity <BookingDto> createReserve(BookingDto booking) {
+    public ResponseEntity<ReservationEntity> createReserve(ReservationEntity booking) {
 
         
 

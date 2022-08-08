@@ -1,12 +1,16 @@
 package com.thelibrarian.data.service;
 
-import com.thelibrarian.data.entity.UsersEntity;
-import com.thelibrarian.data.repository.IUser;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.thelibrarian.data.entity.UsersEntity;
+import com.thelibrarian.data.repository.IUser;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Service
 public class UserServiceBBDD implements IUserService {
 
@@ -23,20 +27,20 @@ public class UserServiceBBDD implements IUserService {
         return user.findAll();
     }
 
-    public void save (UsersEntity userEntity){
-
-        user.save(userEntity);
+    public UsersEntity insert(UsersEntity userEntity) {
+        System.out.println(" Println 2" + userEntity);
+        return user.save(userEntity);
     }
 
-    public UsersEntity Update (UsersEntity users, Integer id){
+    public UsersEntity Update(UsersEntity users, Integer id) {
 
-        if(user.existsById(id)){
+        if (user.existsById(id)) {
 
             users.setId(id);
 
             return user.save(users);
         }
-            return null;
+        return null;
 
     }
 
