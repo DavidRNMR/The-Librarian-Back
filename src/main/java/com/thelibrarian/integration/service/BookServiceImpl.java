@@ -44,7 +44,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(bookDataDto);
+        return ResponseEntity.ok().body(checkCorrectDataInsert(bookDataDto));
     }
 
     @Override
@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(bookDataDtoIsbn);
+        return ResponseEntity.ok().body(checkCorrectDataInsert(bookDataDtoIsbn));
 
     }
 
@@ -73,7 +73,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return new ResponseEntity<BookDataDto>(bookDataDto, HttpStatus.OK);
+        return new ResponseEntity<BookDataDto>(checkCorrectDataInsert(bookDataDto), HttpStatus.OK);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(bookDataDto);
+        return ResponseEntity.ok().body(checkCorrectDataInsert(bookDataDto));
     }
 
     private BookDataDto checkCorrectDataInsert(BookDataDto bookDataDto) {
