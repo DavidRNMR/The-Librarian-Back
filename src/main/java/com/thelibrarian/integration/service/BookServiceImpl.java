@@ -2,13 +2,16 @@ package com.thelibrarian.integration.service;
 
 import com.thelibrarian.integration.dto.BookDataDto;
 
+import com.thelibrarian.integration.dto.BookDto;
 import com.thelibrarian.integration.utilities.Utilities;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -44,6 +47,10 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
+        checkCorrectDataInsert(bookDataDto);
+        checkAuthorExistence(bookDataDto, author);
+        checkTitleExistence(bookDataDto, title);
+
         return ResponseEntity.ok().body(bookDataDto);
     }
 
@@ -58,14 +65,14 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok().body(bookDataDtoIsbn);
+        return ResponseEntity.ok().body(checkCorrectDataInsert(bookDataDtoIsbn));
 
     }
 
     @Override
-    public ResponseEntity<BookDataDto> getBookByAuthor(String Author) {
+    public ResponseEntity<BookDataDto> getBookByAuthor(String author) {
 
-        String urlAuthor = url + "+inauthor:" + Author + APIKEY;
+        String urlAuthor = url + "+inauthor:" + author + APIKEY;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlAuthor, BookDataDto.class);
 
@@ -73,7 +80,10 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return new ResponseEntity<BookDataDto>(bookDataDto, HttpStatus.OK);
+        checkCorrectDataInsert(bookDataDto);
+        checkAuthorExistence(bookDataDto, author);
+
+        return new ResponseEntity<>(bookDataDto, HttpStatus.OK);
     }
 
     @Override
@@ -86,6 +96,9 @@ public class BookServiceImpl implements BookService {
         if (bookDataDto == null) {
             return ResponseEntity.notFound().build();
         }
+
+        checkCorrectDataInsert(bookDataDto);
+        checkTitleExistence(bookDataDto, title);
 
         return ResponseEntity.ok().body(bookDataDto);
     }
@@ -148,6 +161,50 @@ public class BookServiceImpl implements BookService {
 
             }
         }
+
+        return bookDataDto;
+    }
+
+    private BookDataDto checkAuthorExistence(BookDataDto bookDataDto, String author) {
+
+        List<BookDto> booksList = new ArrayList<>();
+
+        for (int i = 0; i < bookDataDto.getItems().length; i++) {
+
+            for (String auth : bookDataDto.getItems()[i].getVolumeInfo().getAuthors()) {
+
+                if (auth.toLowerCase().contains(author.toLowerCase())) {
+                    booksList.add(bookDataDto.getItems()[i]);
+                    break;
+                }
+
+            }
+
+        }
+
+        BookDto[] booksArray = new BookDto[booksList.size()];
+        booksList.toArray(booksArray);
+        bookDataDto.setItems(booksList.toArray(booksArray));
+
+        return bookDataDto;
+    }
+
+    private BookDataDto checkTitleExistence(BookDataDto bookDataDto, String title) {
+
+        List<BookDto> booksList = new ArrayList<>();
+
+        for (int i = 0; i < bookDataDto.getItems().length; i++) {
+
+            if (bookDataDto.getItems()[i].getVolumeInfo().getTitle().toLowerCase().contains(title.toLowerCase())) {
+                System.out.println(bookDataDto.getItems()[i].getVolumeInfo().getTitle());
+                booksList.add(bookDataDto.getItems()[i]);
+            }
+
+        }
+
+        BookDto[] booksArray = new BookDto[booksList.size()];
+        booksList.toArray(booksArray);
+        bookDataDto.setItems(booksList.toArray(booksArray));
 
         return bookDataDto;
     }
