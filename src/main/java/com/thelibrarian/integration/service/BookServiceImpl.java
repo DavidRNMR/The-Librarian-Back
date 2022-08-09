@@ -76,7 +76,7 @@ public class BookServiceImpl implements BookService {
             return ResponseEntity.notFound().build();
         }
 
-        return new ResponseEntity<>(checkCorrectDataInsert(bookDataDto), HttpStatus.OK);
+        return new ResponseEntity<>(checkAuthorExistence(checkCorrectDataInsert(bookDataDto), Author), HttpStatus.OK);
     }
 
     @Override
@@ -155,14 +155,21 @@ public class BookServiceImpl implements BookService {
         return bookDataDto;
     }
 
-    private BookDataDto checkAuthorExistence(BookDataDto bookDataDto) {
+    private BookDataDto checkAuthorExistence(BookDataDto bookDataDto, String author) {
 
         List<BookDto> booksList = new ArrayList<>();
 
         for (int i = 0; i < bookDataDto.getItems().length; i++) {
-            if (bookDataDto.getItems()[i].getVolumeInfo().getAuthors() != null) {
-                booksList.add(bookDataDto.getItems()[i]);
+
+            for (String auth : bookDataDto.getItems()[i].getVolumeInfo().getAuthors()) {
+
+                if (auth.toLowerCase().contains(author.toLowerCase())) {
+                    booksList.add(bookDataDto.getItems()[i]);
+                    break;
+                }
+
             }
+
         }
 
         BookDto[] booksArray = new BookDto[booksList.size()];
