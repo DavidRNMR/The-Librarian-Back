@@ -1,9 +1,15 @@
 package com.thelibrarian.core.controller;
 
+
 import java.security.NoSuchAlgorithmException;
+
 import java.util.List;
 
 import javax.validation.Valid;
+
+import com.thelibrarian.data.entity.UsersEntity;
+import com.thelibrarian.data.service.UserServiceBBDD;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,14 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.thelibrarian.data.entity.UsersEntity;
-import com.thelibrarian.data.service.UserServiceBBDD;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -44,8 +45,6 @@ public class UserControllerBBDD {
 
     }
 
-
-
     @PutMapping("/{id}")
     public ResponseEntity<UsersEntity> update(@RequestBody @Valid UsersEntity evento, @PathVariable int id) {
         UsersEntity e = usuService.update(evento, id);
@@ -55,5 +54,7 @@ public class UserControllerBBDD {
             return ResponseEntity.ok().body(e);
         }
     }
+
+
 
 }
