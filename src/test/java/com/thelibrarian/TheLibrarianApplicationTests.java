@@ -28,7 +28,7 @@ class TheLibrarianApplicationTests {
     @Test
     @DisplayName("Test size of random books list")
     public void getBooksCount() {
-        Assertions.assertEquals(36, randomBooks.items.length);
+        Assertions.assertEquals(10, randomBooks.items.length);
     }
 
     @Test()
