@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public ResponseEntity<BookDataDto> getRandomBooks() {
 
-        String urlGetBook = url + Utilities.generateRandomLetter() + APIKEY;
+        String urlGetBook = url + Utilities.generateRandomLetters() + APIKEY;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
 
