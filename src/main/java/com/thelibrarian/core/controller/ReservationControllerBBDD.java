@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.lowagie.text.DocumentException;
+import com.thelibrarian.data.dto.BookingDto;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.integration.ReservationPDF;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class ReservationControllerBBDD {
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<ReservationEntity> insert(@RequestBody ReservationEntity booking){
+    public ResponseEntity<BookingDto> insert(@RequestBody BookingDto booking){
 
         return reservationService.createReserve(booking);
     }
