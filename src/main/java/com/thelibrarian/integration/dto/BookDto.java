@@ -13,4 +13,5 @@ public class BookDto implements Serializable{
 
     private String id;
     public VolumeInfoDto volumeInfo;
+
 }
