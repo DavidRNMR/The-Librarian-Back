@@ -18,9 +18,6 @@ public class TheLibrarianApplication {
 		SpringApplication.run(TheLibrarianApplication.class, args);
 	}
 
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
+	
 
 }
