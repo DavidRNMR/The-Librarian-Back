@@ -4,13 +4,16 @@ package com.thelibrarian.core.controller;
 import java.security.NoSuchAlgorithmException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.thelibrarian.data.dto.UserDto;
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.service.UserServiceBBDD;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,28 +36,47 @@ public class UserControllerBBDD {
     @Autowired
     private @NonNull UserServiceBBDD usuService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+
     @GetMapping
-    public List<UsersEntity> findAll() {
-        return usuService.findAll();
+    public List<UserDto> findAll() {
+
+        return usuService.findAll().stream().map(post -> modelMapper.map(post, UserDto.class))
+                .collect(Collectors.toList());
     }
 
+
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public UsersEntity insert(@RequestBody UsersEntity user) throws NoSuchAlgorithmException{
-        return usuService.insert(user);
+   // @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<UserDto> insert(@RequestBody UserDto user) throws NoSuchAlgorithmException{
+
+        // convert DTO to entity
+        UsersEntity postRequest = modelMapper.map(user, UsersEntity.class);
+
+        UsersEntity usersEntity = usuService.insert(postRequest);
+
+        // convert entity to DTO
+        UserDto postResponse = modelMapper.map(postRequest, UserDto.class);
+
+        return new ResponseEntity<UserDto>(postResponse, HttpStatus.CREATED);
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsersEntity> update(@RequestBody @Valid UsersEntity evento, @PathVariable int id) {
-        UsersEntity e = usuService.update(evento, id);
-        if(e == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-            return ResponseEntity.ok().body(e);
-        }
+    public ResponseEntity<UserDto> update( @PathVariable int id, @RequestBody @Valid UserDto userDto) {
+
+        // convert DTO to Entity
+        UsersEntity postRequest = modelMapper.map(userDto, UsersEntity.class);
+
+        UsersEntity usersEntity = usuService.update(postRequest, id);
+
+        // entity to DTO
+        UserDto postResponse = modelMapper.map(usersEntity, UserDto.class);
+
+        return ResponseEntity.ok().body(postResponse);
+
     }
-
-
 
 }
