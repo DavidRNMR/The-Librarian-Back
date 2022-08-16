@@ -1,6 +1,7 @@
 package com.thelibrarian.core.controller;
 
 import com.thelibrarian.integration.dto.BookDataDto;
+import com.thelibrarian.integration.dto.BookDto;
 import com.thelibrarian.integration.service.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,13 @@ public class BookControllerApi {
     public ResponseEntity<BookDataDto> findByTitle(@PathVariable String title) {
 
         return bookService.getBookByTitle(title);
+
+    }
+
+    @GetMapping(value = "getById/{id}")
+    public ResponseEntity<BookDto> findById(@PathVariable String id) {
+        
+        return bookService.getBookById(id);
 
     }
 

@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public ResponseEntity<BookDataDto> getRandomBooks() {
 
-        String urlGetBook = url + Utilities.generateRandomLetters() + APIKEY;
+        String urlGetBook = url + Utilities.generateRandomTitles() + APIKEY;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
 
@@ -103,25 +103,102 @@ public class BookServiceImpl implements BookService {
         return ResponseEntity.ok().body(bookDataDto);
     }
 
+    @Override
+    public ResponseEntity<BookDto> getBookById(String id) {
+
+        String urlId = "https://www.googleapis.com/books/v1/volumes/" + id;
+
+        BookDto bookDto = restTemplate.getForObject(urlId, BookDto.class);
+
+        if (bookDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        checkCorrectBookData(bookDto);
+
+        return ResponseEntity.ok().body(bookDto);
+
+    }
+
+    private BookDto checkCorrectBookData(BookDto bookDto) {
+
+        if (bookDto.getVolumeInfo().getTitle() == null) {
+            bookDto.getVolumeInfo().setTitle("Informacion no disponible.");
+        }
+
+        if (bookDto.getVolumeInfo().getAuthors() == null) {
+            String[] authors = {"No existe información."};
+            bookDto.getVolumeInfo().setAuthors(authors);
+        }
+
+        if ((bookDto.getVolumeInfo().getPublishedDate() == null)) {
+            bookDto.getVolumeInfo().setPublishedDate("No existe información.");
+        }
+
+        if (bookDto.getVolumeInfo().getDescription() == null) {
+            bookDto.getVolumeInfo().setDescription("No hay descripción disponible.");
+        }
+
+        if (bookDto.getVolumeInfo().getImageLinks() == null) {
+            Map<String, String> imageLinks = new HashMap<>();
+            imageLinks.put("smallThumbnail", "No image available.");
+            bookDto.getVolumeInfo().setImageLinks(imageLinks);
+        }
+
+        if (bookDto.getVolumeInfo().getCategories() == null) {
+            String[] categories = {"No categories specified."};
+            bookDto.getVolumeInfo().setCategories(categories);
+        }
+
+        if (bookDto.getVolumeInfo().getLanguage() == null) {
+            bookDto.getVolumeInfo().setLanguage("Language not specified");
+        }
+
+        if (bookDto.getVolumeInfo().getIndustryIdentifiers() == null || bookDto.getVolumeInfo().getIndustryIdentifiers().length == 1) {
+            Map<String, String> isbn = new HashMap<>();
+            isbn.put("identifier", "No isbn available.");
+            Map<String, String>[] industryIdentifiers = new HashMap[1];
+            industryIdentifiers[0] = isbn;
+            bookDto.getVolumeInfo().setIndustryIdentifiers(industryIdentifiers);
+        } else {
+            for (Map<String, String> isbn : bookDto.getVolumeInfo().getIndustryIdentifiers()) {
+
+                if (isbn.get("type").equals("ISBN_13")) {
+                    Map<String, String> newIsbn = new HashMap<>();
+                    newIsbn.put("identifier", isbn.get("identifier"));
+                    Map<String, String>[] industryIdentifiers = new HashMap[1];
+                    industryIdentifiers[0] = newIsbn;
+                    bookDto.getVolumeInfo().setIndustryIdentifiers(industryIdentifiers);
+
+                    break;
+                }
+            }
+
+        }
+
+        return bookDto;
+
+    }
+
     private BookDataDto checkCorrectDataInsert(BookDataDto bookDataDto) {
 
         for (int i = 0; i < bookDataDto.getItems().length; i++) {
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getTitle() == null) {
-                bookDataDto.getItems()[i].getVolumeInfo().setTitle("No title available.");
+                bookDataDto.getItems()[i].getVolumeInfo().setTitle("Informacion no disponible..");
             }
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getAuthors() == null) {
-                String[] authors = {"No authors info available."};
+                String[] authors = {"No existe información."};
                 bookDataDto.getItems()[i].getVolumeInfo().setAuthors(authors);
             }
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getPublishedDate() == null) {
-                bookDataDto.getItems()[i].getVolumeInfo().setPublishedDate("No published date available.");
+                bookDataDto.getItems()[i].getVolumeInfo().setPublishedDate("No existe información.");
             }
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getDescription() == null) {
-                bookDataDto.getItems()[i].getVolumeInfo().setDescription("No description available.");
+                bookDataDto.getItems()[i].getVolumeInfo().setDescription("No hay descripción disponible.");
             }
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getImageLinks() == null) {

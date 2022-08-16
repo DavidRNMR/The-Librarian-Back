@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Utilities {
 
-    public static String generateRandomLetters() {
+    public static String generateRandomTitles() {
         List<String> randomTitles = new ArrayList<>();
         randomTitles.add("HARRYPOTTER");
         randomTitles.add("SEÑORDELOSANILLOS");
@@ -33,6 +33,13 @@ public class Utilities {
         randomTitles.add("THEGIRLONTHETRAIN");
         randomTitles.add("FRANKENSTAIN");
         randomTitles.add("LESMISERABLES");
+        randomTitles.add("GONEWITHTHEWIND");
+        randomTitles.add("THINKANDGROWRICH");
+        randomTitles.add("ATALEOFTWOCITIES");
+        randomTitles.add("THETALEOFPETERRABBIT");
+        randomTitles.add("WARANDPEACE");
+        randomTitles.add("ANGELSANDDEMONS");
+        randomTitles.add("THEGODFATHER");
 
         int min = 0;
         int max = randomTitles.size();
