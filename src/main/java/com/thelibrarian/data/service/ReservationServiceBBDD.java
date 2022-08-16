@@ -2,6 +2,7 @@ package com.thelibrarian.data.service;
 
 import java.util.List;
 
+import com.thelibrarian.data.dto.BookingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ReservationServiceBBDD implements IReserve {
     }
 
     @Override
-    public ResponseEntity<ReservationEntity> createReserve(ReservationEntity booking) {
+    public ResponseEntity<BookingDto> createReserve(BookingDto booking) {
 
         List<ReservationEntity> reserveListOfUser = userService.findById(booking.getId_usuario()).getReservation();
 
