@@ -48,13 +48,13 @@ import java.util.List;
             return ResponseEntity.ok().body(book1);
         }
 
-        @GetMapping("/getByIdBook")
+        @GetMapping("/getByIdBook/{id}")
         public BookEntity findById(Integer id) {
 
             return bookService.findById(id);
         }
 
-        @GetMapping("/getByIsbn")
+        @GetMapping("/getByIsbn/{isbn}")
         public BookEntity findByIsbn(String isbn) {
 
             return bookService.findByIsbn(isbn);
