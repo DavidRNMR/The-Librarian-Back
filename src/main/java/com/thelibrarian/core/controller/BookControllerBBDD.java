@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+    @RestController
     public class BookControllerBBDD {
 
         @Autowired
@@ -34,21 +34,18 @@ import java.util.stream.Collectors;
 
             return bookService.findAll()
                     .stream()
-                    .map(book->modelMapper.map(book,BookDto.class))
+                    .map(bookEntity -> modelMapper.map(bookEntity,BookDto.class))
                     .collect(Collectors.toList());
+
         }
 
 
         @PostMapping("/createBook")
-        public ResponseEntity <BookDto> createBook(@RequestBody BookDto bookDto) {
+        @ResponseStatus(code = HttpStatus.CREATED)
+        public ResponseEntity <BookDto> save (@RequestBody BookDto bookDto) {
 
-            BookEntity bookrequest = modelMapper.map(bookDto,BookEntity.class);
+        return bookService.save(bookDto);
 
-            BookEntity book = bookService.save(bookrequest);
-
-            BookDto bookResponse = modelMapper.map(book,BookDto.class);
-
-            return new ResponseEntity<BookDto>(bookResponse,HttpStatus.CREATED);
         }
 
 

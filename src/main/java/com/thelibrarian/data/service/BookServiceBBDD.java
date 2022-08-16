@@ -1,9 +1,11 @@
 
 package com.thelibrarian.data.service;
 
+import com.thelibrarian.data.dto.BookDto;
 import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.repository.IBookDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +23,20 @@ public class BookServiceBBDD implements IBookService {
     }
 
 
-    public BookEntity save(BookEntity book) {
+    public ResponseEntity <BookDto> save(BookDto bookDto) {
 
-        return bookDao.save(book);
+         BookEntity bookEntity = new BookEntity();
+
+         bookEntity.setId_book(bookDto.getId_book());
+         bookEntity.setTitle(bookDto.getTitle());
+         bookEntity.setPublishedDate(bookDto.getPublishedDate());
+         bookEntity.setIsbn(bookDto.getIsbn());
+         bookEntity.setDescription(bookDto.getDescription());
+         bookEntity.setImageLinks(bookDto.getImageLinks());
+         bookEntity.setPageCount(bookDto.getPageCount());
+         bookEntity.setPageCount(bookDto.getPageCount());
+
+         return ResponseEntity.ok().body(bookDto);
     }
 
     public BookEntity findById(Integer id) {
