@@ -1,18 +1,18 @@
 package com.thelibrarian.integration.service;
 
-import com.thelibrarian.integration.dto.BookDataDto;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import com.thelibrarian.integration.dto.BookDto;
-import com.thelibrarian.integration.utilities.Utilities;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.thelibrarian.integration.dto.BookDataDto;
+import com.thelibrarian.integration.dto.BookDto;
+import com.thelibrarian.integration.utilities.Utilities;
 
 @Service
 public class BookServiceImpl implements BookService {

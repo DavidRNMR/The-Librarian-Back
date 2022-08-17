@@ -2,10 +2,9 @@ package com.thelibrarian.data.repository;
 
 
 
-import com.thelibrarian.data.dto.BookingDto;
 import org.springframework.http.ResponseEntity;
 
-import com.thelibrarian.data.entity.ReservationEntity;
+import com.thelibrarian.data.dto.BookingDto;
 
 
 
