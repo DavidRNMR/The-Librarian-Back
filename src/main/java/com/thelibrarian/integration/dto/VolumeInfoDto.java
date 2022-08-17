@@ -21,4 +21,5 @@ public class VolumeInfoDto implements Serializable{
     private String[] categories;
     private String language;
     private Map<String, String>[] industryIdentifiers;
+    private String previewLink;
 }
