@@ -72,13 +72,15 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
         }
 
         @GetMapping("/getByIdBook/{id}")
-        public ResponseEntity <BookDto> findById(@PathVariable Integer id) {
+        public  BookDto findById(@PathVariable Integer id) {
 
-            BookEntity book = bookService.findById(id);
+            /*BookEntity book = bookService.findById(id);
 
             BookDto bookDto = modelMapper.map(book,BookDto.class);
 
-            return ResponseEntity.ok().body(bookDto);
+            return ResponseEntity.ok().body(bookDto);*/
+
+            return convertToDto(bookService.findById(id));
         }
 
         @GetMapping("/getByIsbn/{isbn}")
@@ -92,5 +94,9 @@ import io.swagger.v3.oas.models.responses.ApiResponse;
 
         }
 
+        private BookDto convertToDto(BookEntity book) {
+            BookDto bookDto = modelMapper.map(book, BookDto.class);
+            return bookDto;
+        }
     }
 
