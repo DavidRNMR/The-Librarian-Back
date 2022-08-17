@@ -32,13 +32,9 @@ import java.util.stream.Collectors;
         @GetMapping("/getAllBooks")
         public List<BookDto> findAll() {
 
-            return bookService.findAll()
-                    .stream()
-                    .map(bookEntity -> modelMapper.map(bookEntity,BookDto.class))
-                    .collect(Collectors.toList());
+            return bookService.findAll();
 
         }
-
 
         @PostMapping("/createBook")
         @ResponseStatus(code = HttpStatus.CREATED)
@@ -47,7 +43,6 @@ import java.util.stream.Collectors;
         return bookService.save(bookDto);
 
         }
-
 
         @DeleteMapping("/deleteBook/{id}")
         public ResponseEntity <ApiResponse> delete(@PathVariable Integer id) {
@@ -61,11 +56,11 @@ import java.util.stream.Collectors;
         }
 
         @PutMapping("/updateBook/{id}")
-        public ResponseEntity<BookDto> Update(@RequestBody BookDto bookDto, @PathVariable Integer id) {
+        public ResponseEntity<BookDto> Update(@PathVariable Integer id,@RequestBody BookDto bookDto) {
 
-            BookEntity bookrequest = modelMapper.map(bookDto,BookEntity.class);
+            BookEntity bookRequest = modelMapper.map(bookDto,BookEntity.class);
 
-            BookEntity book = bookService.Update(bookrequest,id);
+            BookEntity book = bookService.Update(bookRequest,id);
 
             BookDto bookResponse = modelMapper.map(book,BookDto.class);
 
