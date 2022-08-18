@@ -1,5 +1,6 @@
 package com.thelibrarian.data.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.thelibrarian.data.dto.BookingDto;
@@ -21,7 +22,6 @@ public class ReservationServiceBBDD implements IReserve {
     UserServiceBBDD userService;
 
     public List<ReservationEntity> findAll() {
-
         return reserve.findAll();
     }
 
@@ -36,9 +36,6 @@ public class ReservationServiceBBDD implements IReserve {
 
             for (ReservationEntity reservationEntity : reserveListOfUser) {
 
-                // System.out.println("Id usuario" + reservationEntity.getId_usuario());
-                // System.out.println("Id libro" + reservationEntity.getId_book());
-
                 if (reservationEntity.getIs_reservado()) {
 
                     count++;
@@ -52,9 +49,7 @@ public class ReservationServiceBBDD implements IReserve {
             }
 
             if (count < 3) {
-                // System.out.println("Reserva completa OK " + booking.toString());
 
-                //Aquí deberemos crear un metodo mapper para reutilizarlo siempre
                 ReservationEntity reservationEntity = new ReservationEntity();
 
                 reservationEntity.setId(booking.getId());
@@ -65,15 +60,12 @@ public class ReservationServiceBBDD implements IReserve {
                 reserve.save(reservationEntity);
 
                 return ResponseEntity.ok().body(booking);
-            } else {
 
-                // System.out.println("Reserva del count <3 Falla");
+            } else {
                 return ResponseEntity.notFound().build();
             }
 
         } else {
-
-            // System.out.println("Reserva Falla");
             return ResponseEntity.notFound().build();
         }
 
@@ -86,9 +78,26 @@ public class ReservationServiceBBDD implements IReserve {
             reservation.setId(id);
 
             return reserve.save(reservation);
-
         }
+
         return null;
+    }
+
+    public List<ReservationEntity> reservedBooks() {
+
+        List<ReservationEntity> books = new ArrayList<>();
+
+        if (findAll().isEmpty()) {
+            return null;
+        } else {
+            for (ReservationEntity book : findAll()) {
+                if (book.getIs_reservado()) {
+                    books.add(book);
+                }
+            }
+        }
+
+        return books;
 
     }
 
