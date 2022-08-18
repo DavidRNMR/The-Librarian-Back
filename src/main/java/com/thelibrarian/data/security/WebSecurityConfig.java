@@ -1,6 +1,8 @@
 package com.thelibrarian.data.security;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,11 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
             .authorizeRequests()
             .antMatchers("/auth/login", "/auth/registro").permitAll()
-            .antMatchers("/get/**").permitAll()
             .antMatchers(HttpMethod.GET,"/h2-console/**").permitAll()
             .antMatchers(HttpMethod.POST,"/h2-console/**").permitAll()
             .anyRequest().authenticated();
-            http.headers().frameOptions().disable();
+        http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
