@@ -51,9 +51,12 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@RequestBody @Valid LoginDto login) throws NoSuchAlgorithmException {
         UsersEntity u = usuService.login(login.getCorreo(), login.getPassword());
+        
         if(u != null) {
             String token = getToken(u);
+            
             TokenResponseDto resp = new TokenResponseDto(token);
+
             return ResponseEntity.ok().body(resp);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -69,7 +72,6 @@ public class AuthController {
 
     @GetMapping("/validate")
     public void validateToken() {
-        // No hace nada, solo sirve para que el token se valide
     }
 
     private String getToken(UsersEntity user) {	

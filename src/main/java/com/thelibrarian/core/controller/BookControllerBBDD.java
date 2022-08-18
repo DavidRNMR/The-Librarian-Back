@@ -2,7 +2,6 @@
 package com.thelibrarian.core.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,11 @@ import com.thelibrarian.data.entity.BookEntity;
 import com.thelibrarian.data.service.BookServiceBBDD;
 
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RestController
+    @RequiredArgsConstructor
     public class BookControllerBBDD {
 
         @Autowired
