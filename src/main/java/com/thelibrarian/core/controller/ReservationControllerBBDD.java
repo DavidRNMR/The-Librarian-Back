@@ -81,5 +81,10 @@ public class ReservationControllerBBDD {
         exporter.exportUser(response);
 
     }
+
+    @GetMapping("/reserved-books")
+    public List<ReservationEntity> getReservedBooks() {
+        return reservationService.reservedBooks();
+    }
     
 }
