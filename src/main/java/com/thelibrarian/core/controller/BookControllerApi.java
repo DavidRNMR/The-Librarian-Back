@@ -24,7 +24,7 @@ public class BookControllerApi {
     BookServiceImpl bookService;
 
 
-    @GetMapping
+    @GetMapping(value = "/random")
     public ResponseEntity<BookDataDto> getBook() {
 
         return bookService.getRandomBooks();
@@ -48,7 +48,7 @@ public class BookControllerApi {
     }
 
 
-    @GetMapping("/author/{author}")
+    @GetMapping(value = "/author/{author}")
     public ResponseEntity<BookDataDto> findByAuthor(@PathVariable String author) {
 
         return bookService.getBookByAuthor(author);
@@ -62,7 +62,7 @@ public class BookControllerApi {
 
     }
 
-    @GetMapping(value = "getById/{id}")
+    @GetMapping(value = "/getById/{id}")
     public ResponseEntity<BookDto> findById(@PathVariable String id) {
         
         return bookService.getBookById(id);

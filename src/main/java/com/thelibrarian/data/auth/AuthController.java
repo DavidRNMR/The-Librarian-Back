@@ -51,17 +51,14 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<TokenResponseDto> login(@RequestBody @Valid LoginDto login) throws NoSuchAlgorithmException {
         UsersEntity u = usuService.login(login.getCorreo(), login.getPassword());
-        System.out.println("estoy aqui 111111111111111111111");
         
         if(u != null) {
-            System.out.println("Estoy aqui 222222222222222");
             String token = getToken(u);
             
             TokenResponseDto resp = new TokenResponseDto(token);
 
             return ResponseEntity.ok().body(resp);
         } else {
-            System.out.println("estoy aqui 333333333333333333");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

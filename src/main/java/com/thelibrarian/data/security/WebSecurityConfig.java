@@ -28,6 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .authorizeRequests()
             .antMatchers("/auth/login", "/auth/registro").permitAll()
             .antMatchers(HttpMethod.GET,"/h2-console/**").permitAll()
+            .antMatchers(HttpMethod.GET,"/get/random").permitAll()
+            .antMatchers(HttpMethod.GET,"/get/getById/**").permitAll()
             .antMatchers(HttpMethod.POST,"/h2-console/**").permitAll()
             .anyRequest().authenticated();
         http.headers().frameOptions().disable();
