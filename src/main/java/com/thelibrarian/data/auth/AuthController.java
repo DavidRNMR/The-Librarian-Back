@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import com.thelibrarian.integration.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,9 @@ public class AuthController {
     @Autowired
     private final @NonNull UserServiceBBDD usuService;
 
+    @Autowired
+    private EmailService emailService;
+
     @GetMapping("/getCurrentUser")
     public int currentUserId(Authentication authentication){
         var userId = authentication.getCredentials();
@@ -60,6 +64,7 @@ public class AuthController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void registro(@RequestBody @Valid UsersEntity usuario) throws NoSuchAlgorithmException {
         usuService.insert(usuario);
+        emailService.sendEmail(usuario.getNombre(), usuario.getCorreo());
     }
 
     @GetMapping("/validate")
