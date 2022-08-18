@@ -273,7 +273,6 @@ public class BookServiceImpl implements BookService {
         for (int i = 0; i < bookDataDto.getItems().length; i++) {
 
             if (bookDataDto.getItems()[i].getVolumeInfo().getTitle().toLowerCase().contains(title.toLowerCase())) {
-                System.out.println(bookDataDto.getItems()[i].getVolumeInfo().getTitle());
                 booksList.add(bookDataDto.getItems()[i]);
             }
 
