@@ -15,7 +15,7 @@ public class BookDto implements Serializable {
     private Integer id_book;
 
     private String title;
-    private Date publishedDate;
+    private String publishedDate;
     private String isbn;
     private String description;
     private String imageLinks;
