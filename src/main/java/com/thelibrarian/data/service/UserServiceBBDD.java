@@ -47,23 +47,34 @@ public class UserServiceBBDD {
     public UsersEntity updatePassword( String email, String password, String newPassword) throws NoSuchAlgorithmException {
 
         System.out.println("Holaaaaaaaaaa"+ email);
+        System.out.println("Hola password" + password);
+        System.out.println("Codificado" + encodePassword(password));
 
         //Problema
-        UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(email,password);
+        UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(email,encodePassword(password));
+        userNewPassword = usuRepo.getReferenceById(userNewPassword.getId());
 
+        System.out.println("Nombre" + userNewPassword.getNombre());
 
+        System.out.println("ID"+userNewPassword.getId());
 
-        System.out.println("Holaaaaaaaaaa2"+userNewPassword.getId());
 
         if(userNewPassword.getId()!=null) {
 
-            System.out.println("Nullllllllll1");
+            System.out.println("No es null");
+
+
             userNewPassword.setPassword(encodePassword(newPassword));
 
-            return usuRepo.save(userNewPassword);
+
+            System.out.println("Contraseña actual" + userNewPassword.getPassword());
+
+
+            usuRepo.save(userNewPassword);
+
+            return userNewPassword;
         }
 
-        System.out.println("Nullllllllll2");
         return null; // No existe
     }
 

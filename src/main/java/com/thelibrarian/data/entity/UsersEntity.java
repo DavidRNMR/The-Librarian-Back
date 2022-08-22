@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 public class UsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Null
+
     private Integer id;
     @NotNull(message = "El nombre es obligatorio")
     private String nombre;

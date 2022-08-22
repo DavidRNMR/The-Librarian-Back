@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers(HttpMethod.GET,"/h2-console/**").permitAll()
             .antMatchers(HttpMethod.GET,"/get/random").permitAll()
             .antMatchers(HttpMethod.GET,"/get/getById/**").permitAll()
-                .antMatchers(HttpMethod.PUT,"/users/changePassword").permitAll()
+                .antMatchers(HttpMethod.PUT,"/users/changePassword/**").permitAll()
             .antMatchers(HttpMethod.POST,"/h2-console/**").permitAll()
             .anyRequest().authenticated();
         http.headers().frameOptions().disable();
