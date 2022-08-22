@@ -44,6 +44,40 @@ public class UserServiceBBDD {
         return null; // No existe
     }
 
+    public UsersEntity updatePassword( String email, String password, String newPassword) throws NoSuchAlgorithmException {
+
+        System.out.println("Holaaaaaaaaaa"+ email);
+        System.out.println("Hola password" + password);
+        System.out.println("Codificado" + encodePassword(password));
+
+        //Problema
+        UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(email,encodePassword(password));
+        userNewPassword = usuRepo.getReferenceById(userNewPassword.getId());
+
+        System.out.println("Nombre" + userNewPassword.getNombre());
+
+        System.out.println("ID"+userNewPassword.getId());
+
+
+        if(userNewPassword.getId()!=null) {
+
+            System.out.println("No es null");
+
+
+            userNewPassword.setPassword(encodePassword(newPassword));
+
+
+            System.out.println("Contraseña actual" + userNewPassword.getPassword());
+
+
+            usuRepo.save(userNewPassword);
+
+            return userNewPassword;
+        }
+
+        return null; // No existe
+    }
+
 
     private String encodePassword(String pass) throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
