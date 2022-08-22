@@ -2,21 +2,18 @@ package com.thelibrarian.core.controller;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import com.thelibrarian.data.entity.UsersEntity;
 import com.thelibrarian.data.service.UserServiceBBDD;
@@ -51,7 +48,8 @@ public class UserControllerBBDD {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsersEntity> update(@RequestBody @Valid UsersEntity evento, @PathVariable int id) {
+    public ResponseEntity<UsersEntity> update(@RequestBody @Valid UsersEntity evento, @PathVariable int id){
+
         UsersEntity e = usuService.update(evento, id);
         if(e == null) {
             return ResponseEntity.notFound().build();
@@ -59,6 +57,34 @@ public class UserControllerBBDD {
             return ResponseEntity.ok().body(e);
         }
     }
+
+   //ChangePassword
+    @PutMapping("/changePassword")
+    public ResponseEntity<UsersEntity> update(@RequestParam String email, @RequestParam String password, @RequestParam String newPassword) throws NoSuchAlgorithmException {
+
+
+
+        UsersEntity userPasswordChanged = usuService.updatePassword(email,password,newPassword);
+
+        System.out.println("Controlador + id" + userPasswordChanged.getId());
+
+        if( usuService == null) {
+            System.out.println("Controlador + build not found" + userPasswordChanged.getId());
+            return ResponseEntity.notFound().build();
+        } else {
+            System.out.println("Controlador + build ok" + userPasswordChanged.getId());
+            return ResponseEntity.ok().body(userPasswordChanged);
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
 }
