@@ -2,6 +2,7 @@ package com.thelibrarian.data.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.thelibrarian.data.dto.BookingDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class ReservationServiceBBDD implements IReserve {
 
     @Autowired
     UserServiceBBDD userService;
+
+    @Autowired
+    IReserve ireserve;
 
     public List<ReservationEntity> findAll() {
         return reserve.findAll();
@@ -71,6 +75,19 @@ public class ReservationServiceBBDD implements IReserve {
 
     }
 
+
+    public List<ReservationEntity> findAllByUserId(Integer id) {
+
+        return userService.findById(id).getReservation();
+
+    }
+
+    public ReservationEntity findById(Integer id) {
+
+    return reserve.findById(id).orElse(null);
+    }
+
+
     public ReservationEntity Update(ReservationEntity reservation, Integer id) {
 
         if (reserve.existsById(id)) {
@@ -83,19 +100,16 @@ public class ReservationServiceBBDD implements IReserve {
         return null;
     }
 
-    public List<ReservationEntity> reservedBooks() {
+    @Override
+    public List<ReservationEntity> reservedBooksByUserId(Integer id) {
 
         List<ReservationEntity> books = new ArrayList<>();
 
-        if (findAll().isEmpty()) {
-            return null;
-        } else {
-            for (ReservationEntity book : findAll()) {
+            for (ReservationEntity book : findAllByUserId(id)) {
                 if (book.getIs_reservado()) {
                     books.add(book);
                 }
             }
-        }
 
         return books;
 
