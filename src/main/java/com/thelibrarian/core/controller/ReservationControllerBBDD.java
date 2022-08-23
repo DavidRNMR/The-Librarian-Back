@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.thelibrarian.data.repository.IReserve;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -82,9 +83,18 @@ public class ReservationControllerBBDD {
 
     }
 
-    @GetMapping("/reserved-books")
-    public List<ReservationEntity> getReservedBooks() {
-        return reservationService.reservedBooks();
+    @GetMapping("/reservedBooksByUserId/{id}")
+    public List<ReservationEntity> getReservedBooks(@PathVariable Integer id) {
+        return reservationService.reservedBooksByUserId(id);
     }
+
+    @GetMapping("/getAllReservationById/{id}")
+    public List<ReservationEntity> findAllByUserId(@PathVariable Integer id) {
+
+        return reservationService.findAllByUserId(id);
+
+    }
+
+
     
 }
