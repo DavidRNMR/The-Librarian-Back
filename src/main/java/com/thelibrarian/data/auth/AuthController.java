@@ -1,5 +1,6 @@
 package com.thelibrarian.data.auth;
 
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Date;
@@ -63,7 +64,7 @@ public class AuthController {
 
     @PostMapping("/registro")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void registro(@RequestBody @Valid UsersEntity usuario) throws NoSuchAlgorithmException {
+    public void registro(@RequestBody @Valid UsersEntity usuario) throws NoSuchAlgorithmException, IOException {
         usuService.insert(usuario);
         emailService.sendEmail(usuario.getNombre(), usuario.getCorreo());
     }
