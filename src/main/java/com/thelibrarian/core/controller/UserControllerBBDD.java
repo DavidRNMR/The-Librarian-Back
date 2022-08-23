@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.thelibrarian.data.auth.dto.ChangePasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,12 +60,16 @@ public class UserControllerBBDD {
     }
 
     //ChangePassword
-    @PutMapping("/changePassword")
+    @PutMapping("/changePassword/{email}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<UsersEntity> update(@RequestParam String email, @RequestParam String password, @RequestParam String newPassword) throws NoSuchAlgorithmException {
+    public ResponseEntity<ChangePasswordDTO> updatePassword(@RequestBody ChangePasswordDTO passwordChange, @PathVariable String email) throws NoSuchAlgorithmException {
+
+        System.out.println("1" + passwordChange.toString());
 
 
-        UsersEntity userPasswordChanged = usuService.updatePassword(email, password, newPassword);
+           usuService.updatePassword();
+
+
 
 
         if (usuService == null) {
@@ -72,7 +77,7 @@ public class UserControllerBBDD {
             return ResponseEntity.notFound().build();
         } else {
 
-            return ResponseEntity.ok().body(userPasswordChanged);
+            return ResponseEntity.ok().body(e);
         }
     }
 

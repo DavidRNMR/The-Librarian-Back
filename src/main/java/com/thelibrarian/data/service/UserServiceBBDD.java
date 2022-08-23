@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.List;
 
+import com.thelibrarian.data.auth.dto.ChangePasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,35 +45,21 @@ public class UserServiceBBDD {
         return null; // No existe
     }
 
-    public UsersEntity updatePassword( String email, String password, String newPassword) throws NoSuchAlgorithmException {
+    public ChangePasswordDTO updatePassword(ChangePasswordDTO passwordChange) throws NoSuchAlgorithmException {
 
-        System.out.println("Holaaaaaaaaaa"+ email);
-        System.out.println("Hola password" + password);
-        System.out.println("Codificado" + encodePassword(password));
 
-        //Problema
-        UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(email,encodePassword(password));
-        userNewPassword = usuRepo.getReferenceById(userNewPassword.getId());
+        UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(passwordChange.getEmail(),encodePassword(passwordChange.getPassword()));
 
-        System.out.println("Nombre" + userNewPassword.getNombre());
 
-        System.out.println("ID"+userNewPassword.getId());
-
+        System.out.println("USERNEWPASSWORD" + userNewPassword.toString());
 
         if(userNewPassword.getId()!=null) {
 
-            System.out.println("No es null");
-
-
-            userNewPassword.setPassword(encodePassword(newPassword));
-
-
-            System.out.println("Contraseña actual" + userNewPassword.getPassword());
-
+            userNewPassword.setPassword(encodePassword(passwordChange.getNewPassword()));
 
             usuRepo.save(userNewPassword);
 
-            return userNewPassword;
+            return passwordChange;
         }
 
         return null; // No existe
