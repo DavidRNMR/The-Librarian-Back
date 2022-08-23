@@ -49,9 +49,7 @@ public class UserServiceBBDD {
 
 
         UsersEntity userNewPassword = usuRepo.findByCorreoAndPassword(passwordChange.getEmail(),encodePassword(passwordChange.getPassword()));
-
-
-        System.out.println("USERNEWPASSWORD" + userNewPassword.toString());
+        
 
         if(userNewPassword.getId()!=null) {
 

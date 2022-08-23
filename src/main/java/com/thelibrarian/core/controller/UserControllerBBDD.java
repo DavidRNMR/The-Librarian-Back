@@ -60,16 +60,13 @@ public class UserControllerBBDD {
     }
 
     //ChangePassword
-    @PutMapping("/changePassword/{email}")
+    @PutMapping("/changePassword/{email}/{password}/{newPassword}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<ChangePasswordDTO> updatePassword(@RequestBody ChangePasswordDTO passwordChange, @PathVariable String email) throws NoSuchAlgorithmException {
+    public ResponseEntity<ChangePasswordDTO> updatePassword(@RequestBody ChangePasswordDTO passwordChange, @PathVariable String email, @PathVariable String password, @PathVariable String newPassword) throws NoSuchAlgorithmException {
 
-        System.out.println("1" + passwordChange.toString());
+          ChangePasswordDTO prueba = passwordChange;
 
-
-           usuService.updatePassword();
-
-
+           usuService.updatePassword(prueba);
 
 
         if (usuService == null) {
@@ -77,7 +74,7 @@ public class UserControllerBBDD {
             return ResponseEntity.notFound().build();
         } else {
 
-            return ResponseEntity.ok().body(e);
+            return ResponseEntity.ok().body(prueba);
         }
     }
 
