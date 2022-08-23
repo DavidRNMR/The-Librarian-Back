@@ -1,10 +1,14 @@
 package com.thelibrarian.integration.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thelibrarian.integration.utilities.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class EmailService {
@@ -12,20 +16,12 @@ public class EmailService {
     @Autowired
     private JavaMailSender emailSender;
 
-    public void sendEmail(String userName, String userEmail) {
-        Mail mail = new Mail();
-        mail.setFrom("no-reply@gmail.com");
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public void sendEmail(String userName, String userEmail) throws IOException {
+        Mail mail = objectMapper.readValue(new File("src/main/resources/emailData.json"), Mail.class);
         mail.setTo(userEmail);
-        mail.setSubject("Bienvenid@ a The Librarian!");
-        mail.setContent("Hola, " + userName + "!\n" +
-                System.lineSeparator() +
-                "Bienvenid@ a The Librarian!\n" +
-                "Disfruta de miles de libros de todo el mundo con un acceso 24/7. " +
-                "Te recordamos que en tu libreria personal 'Mis Libros' podras tener un maximo de 3 libros, los que puedes leer sin ningun limite de tiempo para devolverlos.\n" +
-                "Para cualquer duda contacta con nosotros.\n" +
-                System.lineSeparator() +
-                "Un cordial saludo,\n" +
-                "el equipo de The Librarian!");
+        mail.setContent("Hola, " + userName + "!\n\n" + mail.getContent());
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject(mail.getSubject());
