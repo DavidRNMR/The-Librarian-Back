@@ -21,4 +21,5 @@ public class BookDto implements Serializable {
     private String imageLinks;
     private int pageCount;
     private String language;
+    private String previewLink;
 }

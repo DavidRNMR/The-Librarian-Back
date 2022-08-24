@@ -37,6 +37,7 @@ public class BookEntity {
     private String imageLinks;
     private int pageCount;
     private String language;
+    private String previewLink;
 
     @JsonBackReference
     @OneToMany(targetEntity = ReservationEntity.class, mappedBy = "id_book", orphanRemoval = false, fetch = FetchType.LAZY)
