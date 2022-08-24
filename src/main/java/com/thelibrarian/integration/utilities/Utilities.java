@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utilities {
+    private Utilities() {
+    }
 
     public static String generateRandomTitles() {
         List<String> randomTitles = new ArrayList<>();
