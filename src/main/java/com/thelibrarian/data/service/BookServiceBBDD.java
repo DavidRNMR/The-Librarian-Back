@@ -40,6 +40,7 @@ public class BookServiceBBDD implements IBookService {
         bookEntity.setImageLinks(bookDto.getImageLinks());
         bookEntity.setPageCount(bookDto.getPageCount());
         bookEntity.setLanguage(bookDto.getLanguage());
+        bookEntity.setPreviewLink(bookDto.getPreviewLink());
 
         bookDao.save(bookEntity);
 
