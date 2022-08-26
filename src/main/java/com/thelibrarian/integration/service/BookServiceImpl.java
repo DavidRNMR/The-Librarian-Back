@@ -17,7 +17,7 @@ import com.thelibrarian.integration.utilities.Utilities;
 @Service
 public class BookServiceImpl implements BookService {
 
-    final String APIKEY = "&key=AIzaSyCtHYmnpHGSmvAiRplev8Dy342qx1w3vVs&maxResults=12";
+    final String APIKEY = "&key=AIzaSyB57C58BGeh07Oe5kI63_IBAvjkdNhuCQA&maxResults=12";
     RestTemplate restTemplate = new RestTemplate();
     String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
