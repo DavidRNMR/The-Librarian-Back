@@ -66,8 +66,8 @@ public class ReservationControllerBBDD {
         return ResponseEntity.ok().body(reservation1);
     }
 
-    @GetMapping("/reserve/export/pdf")
-    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+    @GetMapping("/export/pdf/{id}")
+    public void exportToPDF(HttpServletResponse response, @PathVariable Integer id) throws DocumentException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -76,7 +76,7 @@ public class ReservationControllerBBDD {
         String headerValue = "attachment; filename=users_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
 
-        List<ReservationEntity> list = reservationService.findAll();
+        List<ReservationEntity> list = reservationService.findAllByUserId(id);
 
         ReservationPDF exporter = new ReservationPDF(list);
         exporter.exportUser(response);
