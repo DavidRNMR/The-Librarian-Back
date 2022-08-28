@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @Configuration
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     
     @Override
