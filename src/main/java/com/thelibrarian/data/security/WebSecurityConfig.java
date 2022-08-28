@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .antMatchers(HttpMethod.GET,"/get/getById/**").permitAll()
                 .antMatchers(HttpMethod.PUT,"/users/changePassword/**").permitAll()
             .antMatchers(HttpMethod.POST,"/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST,"ttp://thelibrarian-env.eba-dxaxthpx.eu-west-2.elasticbeanstalk.com/**").permitAll()
+                .antMatchers(HttpMethod.POST,"https://the-librarian-front-develop.vercel.app//**").permitAll()
             .anyRequest().authenticated();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
