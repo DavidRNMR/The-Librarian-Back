@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.PUT,"/users/changePassword/**").permitAll()
             .antMatchers(HttpMethod.POST,"/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.POST,"https://the-librarian-front-develop-c5kdpnfj3-raulgarvdev.vercel.app/**").permitAll()
+                .antMatchers(HttpMethod.POST,"https://the-librarian-front-develop.vercel.app/**").permitAll()
             .anyRequest().authenticated();
         http.headers().frameOptions().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
