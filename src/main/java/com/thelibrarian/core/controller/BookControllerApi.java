@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/get")
 public class BookControllerApi {
 
-    //Prueba sonar
+
     @Autowired
     BookServiceImpl bookService;
 
