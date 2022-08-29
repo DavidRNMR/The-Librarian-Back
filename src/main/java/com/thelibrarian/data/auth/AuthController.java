@@ -66,7 +66,7 @@ public class AuthController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public void registro(@RequestBody @Valid UsersEntity usuario) throws NoSuchAlgorithmException, IOException {
         usuService.insert(usuario);
-        emailService.sendEmail(usuario.getNombre(), usuario.getCorreo());
+       // emailService.sendEmail(usuario.getNombre(), usuario.getCorreo());
     }
 
     @GetMapping("/validate")
