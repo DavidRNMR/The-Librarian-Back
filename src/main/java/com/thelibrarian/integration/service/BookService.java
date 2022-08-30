@@ -6,10 +6,11 @@ import org.springframework.http.ResponseEntity;
 import com.thelibrarian.integration.dto.BookDataDto;
 
 public interface BookService {
-    public ResponseEntity<BookDataDto> getRandomBooks();
-    public ResponseEntity<BookDataDto> searchBookByTitleAuthor(String title, String author);
-    public ResponseEntity<BookDataDto> getBookByIsbn(String isbn);
-    public ResponseEntity<BookDataDto> getBookByAuthor(String author);
-    public ResponseEntity<BookDataDto> getBookByTitle(String title);
-    public ResponseEntity<BookDto> getBookById(String id);
+    ResponseEntity<BookDataDto> getRandomBooks();
+    ResponseEntity<BookDataDto> getSearchHistoryBooks();
+    ResponseEntity<BookDataDto> searchBookByTitleAuthor(String title, String author);
+    ResponseEntity<BookDataDto> getBookByIsbn(String isbn);
+    ResponseEntity<BookDataDto> getBookByAuthor(String author);
+    ResponseEntity<BookDataDto> getBookByTitle(String title);
+    ResponseEntity<BookDto> getBookById(String id);
 }

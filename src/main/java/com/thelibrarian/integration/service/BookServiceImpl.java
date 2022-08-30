@@ -17,16 +17,32 @@ import com.thelibrarian.integration.utilities.Utilities;
 @Service
 public class BookServiceImpl implements BookService {
 
-    final String APIKEY = "&key=AIzaSyB57C58BGeh07Oe5kI63_IBAvjkdNhuCQA&maxResults=12";
-    RestTemplate restTemplate = new RestTemplate();
-    String url = "https://www.googleapis.com/books/v1/volumes?q=";
+    static final String APIKEY = "&key=AIzaSyB57C58BGeh07Oe5kI63_IBAvjkdNhuCQA&maxResults=12";
+    private static final String url = "https://www.googleapis.com/books/v1/volumes?q=";
+    private final RestTemplate restTemplate = new RestTemplate();
+    private String searchBooksHistoryUrl;
 
     @Override
     public ResponseEntity<BookDataDto> getRandomBooks() {
 
         String urlGetBook = url + Utilities.generateRandomTitles() + APIKEY;
+        searchBooksHistoryUrl = urlGetBook;
 
         BookDataDto bookDataDto = restTemplate.getForObject(urlGetBook, BookDataDto.class);
+
+        if (bookDataDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(checkCorrectDataInsert(bookDataDto));
+
+    }
+
+
+    @Override
+    public ResponseEntity<BookDataDto> getSearchHistoryBooks() {
+
+        BookDataDto bookDataDto = restTemplate.getForObject(searchBooksHistoryUrl, BookDataDto.class);
 
         if (bookDataDto == null) {
             return ResponseEntity.notFound().build();
