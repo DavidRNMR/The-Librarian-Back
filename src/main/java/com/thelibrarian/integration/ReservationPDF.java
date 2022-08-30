@@ -10,7 +10,17 @@ import com.lowagie.text.Font;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.Color;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.logging.Logger;
+
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 
@@ -26,6 +36,7 @@ public class ReservationPDF {
     }
 
     private void writeTableHeader(PdfPTable table) {
+
         PdfPCell cell = new PdfPCell();
 
         cell.setBackgroundColor(Color.BLUE);
@@ -35,39 +46,41 @@ public class ReservationPDF {
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
         font.setColor(Color.WHITE);
 
-        cell.setPhrase(new Phrase("ID", font));
-        table.addCell(cell);
-
 
         cell.setPhrase(new Phrase("User Name", font));
         table.addCell(cell);
 
-        cell.setPhrase(new Phrase("Email", font));
-        table.addCell(cell);
 
         cell.setPhrase(new Phrase("Title", font));
         table.addCell(cell);
 
+
         cell.setPhrase(new Phrase("Reserved", font));
+        table.addCell(cell);
+
+        cell.setPhrase((new Phrase("ReservationDate")));
         table.addCell(cell);
 
     }
 
-    private void writeTableData(PdfPTable table) {
+    private void writeTableData(PdfPTable table)  {
+
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
         for (ReservationEntity reserve : reserves) {
 
-            table.addCell(String.valueOf(reserve.getId()));
             table.addCell(String.valueOf(reserve.getUsuario().getNombre()));
-            table.addCell(reserve.getUsuario().getCorreo());
             table.addCell(String.valueOf(reserve.getBook().getTitle()));
             table.addCell(String.valueOf(reserve.getIs_reservado()));
-
+            table.addCell(currentDateTime);
 
         }
+
     }
 
 
-    public void exportUser(HttpServletResponse response) throws DocumentException, IOException {
+    public void exportUser(HttpServletResponse response) throws DocumentException, IOException, ParseException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
 
@@ -81,9 +94,9 @@ public class ReservationPDF {
 
         document.add(p);
 
-        PdfPTable table = new PdfPTable(5);
+        PdfPTable table = new PdfPTable(4);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f,1.5f});
+        table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f});
         table.setSpacingBefore(10);
 
         writeTableHeader(table);

@@ -2,6 +2,7 @@ package com.thelibrarian.core.controller;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -67,7 +68,7 @@ public class ReservationControllerBBDD {
     }
 
     @GetMapping("/export/pdf/{id}")
-    public void exportToPDF(HttpServletResponse response, @PathVariable Integer id) throws DocumentException, IOException {
+    public void exportToPDF(HttpServletResponse response, @PathVariable Integer id) throws DocumentException, IOException, ParseException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());

@@ -1,5 +1,6 @@
 package com.thelibrarian.data.dto;
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
