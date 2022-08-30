@@ -38,11 +38,9 @@ public class BookControllerApi {
     @GetMapping(value = "/searchByIsbn/{isbn}")
     public ResponseEntity<BookDataDto> getBookByIsbn(@PathVariable String isbn) {
 
-        try{
+
             return bookService.getBookByIsbn(isbn);
-        }catch (Exception e){
-            return null;
-        }
+
     }
 
 
