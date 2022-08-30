@@ -10,6 +10,8 @@ import com.lowagie.text.Font;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.Color;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,7 +38,6 @@ public class ReservationPDF {
     }
 
     private void writeTableHeader(PdfPTable table) {
-
         PdfPCell cell = new PdfPCell();
 
         cell.setBackgroundColor(Color.BLUE);
@@ -54,33 +55,53 @@ public class ReservationPDF {
         cell.setPhrase(new Phrase("Title", font));
         table.addCell(cell);
 
+        cell.setPhrase(new Phrase("Image", font));
+        table.addCell(cell);
 
         cell.setPhrase(new Phrase("Reserved", font));
         table.addCell(cell);
 
-        cell.setPhrase((new Phrase("ReservationDate")));
+        cell.setPhrase(new Phrase("ReservedDate", font));
         table.addCell(cell);
 
     }
 
-    private void writeTableData(PdfPTable table)  {
+    private void writeTableData(PdfPTable table) throws IOException {
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
 
         for (ReservationEntity reserve : reserves) {
 
-            table.addCell(String.valueOf(reserve.getUsuario().getNombre()));
-            table.addCell(String.valueOf(reserve.getBook().getTitle()));
-            table.addCell(String.valueOf(reserve.getIs_reservado()));
-            table.addCell(currentDateTime);
+            String image = reserve.getBook().getImageLinks();
+
+            Image img =  Image.getInstance(new URL(image));
+
+
+
+            if(reserve.getIs_reservado()==true){
+
+                table.addCell(String.valueOf(reserve.getUsuario().getNombre()));
+                table.addCell(String.valueOf(reserve.getBook().getTitle()));
+                table.addCell(img);
+                table.addCell("reserved");
+                table.addCell(currentDateTime);
+            }
+
+            else {
+                table.addCell(String.valueOf(reserve.getUsuario().getNombre()));
+                table.addCell(String.valueOf(reserve.getBook().getTitle()));
+                table.addCell(img);
+                table.addCell("Not Reserved");
+                table.addCell(currentDateTime);
+            }
+
 
         }
-
     }
 
 
-    public void exportUser(HttpServletResponse response) throws DocumentException, IOException, ParseException {
+    public void exportUser(HttpServletResponse response) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
 
@@ -90,13 +111,14 @@ public class ReservationPDF {
         font.setColor(Color.BLUE);
 
         Paragraph p = new Paragraph("List of Reserves", font);
+
         p.setAlignment(Paragraph.ALIGN_CENTER);
 
         document.add(p);
 
-        PdfPTable table = new PdfPTable(4);
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f});
+        table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f,1.5f});
         table.setSpacingBefore(10);
 
         writeTableHeader(table);
