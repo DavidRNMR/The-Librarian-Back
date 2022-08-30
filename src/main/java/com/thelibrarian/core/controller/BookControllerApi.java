@@ -38,8 +38,11 @@ public class BookControllerApi {
     @GetMapping(value = "/searchByIsbn/{isbn}")
     public ResponseEntity<BookDataDto> getBookByIsbn(@PathVariable String isbn) {
 
-        return bookService.getBookByIsbn(isbn);
-
+        try{
+            return bookService.getBookByIsbn(isbn);
+        }catch (Exception e){
+            return null;
+        }
     }
 
 
@@ -48,14 +51,9 @@ public class BookControllerApi {
 
         try {
             return bookService.getBookByAuthor(author);
-
         } catch (Exception e) {
-            
-            System.out.println("");
             return null;
-
         }
-
 
     }
 
@@ -63,7 +61,11 @@ public class BookControllerApi {
     @GetMapping(value = "searchByTitle/{title}")
     public ResponseEntity<BookDataDto> findByTitle(@PathVariable String title) {
 
-        return bookService.getBookByTitle(title);
+        try{
+            return bookService.getBookByTitle(title);
+        }catch (Exception e){
+            return null;
+        }
 
     }
 
