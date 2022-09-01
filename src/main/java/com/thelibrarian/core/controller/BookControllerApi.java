@@ -26,6 +26,13 @@ public class BookControllerApi {
 
     }
 
+    @GetMapping(value = "/history")
+    public ResponseEntity<BookDataDto> getBookHistory() {
+
+        return bookService.getSearchHistoryBooks();
+
+    }
+
 
     @GetMapping(value = "/getByTitleAuthor/{title}/{author}")
     public ResponseEntity<BookDataDto> getBookByTitleAuthor(@PathVariable String title, @PathVariable String author) {

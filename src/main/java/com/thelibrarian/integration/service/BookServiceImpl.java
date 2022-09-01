@@ -74,7 +74,7 @@ public class BookServiceImpl implements BookService {
     public ResponseEntity<BookDataDto> getBookByIsbn(String isbn) {
 
         String urlIsbn = url + "isbn:" + isbn + APIKEY;
-
+        searchBooksHistoryUrl = urlIsbn;
         BookDataDto bookDataDtoIsbn = restTemplate.getForObject(urlIsbn, BookDataDto.class);
 
         if (bookDataDtoIsbn == null) {
@@ -89,7 +89,7 @@ public class BookServiceImpl implements BookService {
     public ResponseEntity<BookDataDto> getBookByAuthor(String author) {
 
         String urlAuthor = url + "+inauthor:" + author + APIKEY;
-
+        searchBooksHistoryUrl = urlAuthor;
         BookDataDto bookDataDto = restTemplate.getForObject(urlAuthor, BookDataDto.class);
 
         if (bookDataDto == null) {
@@ -106,7 +106,7 @@ public class BookServiceImpl implements BookService {
     public ResponseEntity<BookDataDto> getBookByTitle(String title) {
 
         String urlTitle = url + "+intitle:" + title + APIKEY;
-
+        searchBooksHistoryUrl = urlTitle;
         BookDataDto bookDataDto = restTemplate.getForObject(urlTitle, BookDataDto.class);
 
         if (bookDataDto == null) {
