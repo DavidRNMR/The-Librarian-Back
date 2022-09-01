@@ -39,46 +39,30 @@ public class ReservationPDF {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-
         cell.setBackgroundColor(Color.BLUE);
         cell.setPadding(5);
-
-
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
         font.setColor(Color.WHITE);
-
-
         cell.setPhrase(new Phrase("User Name", font));
         table.addCell(cell);
-
-
         cell.setPhrase(new Phrase("Title", font));
         table.addCell(cell);
-
         cell.setPhrase(new Phrase("Image", font));
         table.addCell(cell);
-
         cell.setPhrase(new Phrase("Reserved", font));
         table.addCell(cell);
-
         cell.setPhrase(new Phrase("ReservedDate", font));
         table.addCell(cell);
-
     }
 
     private void writeTableData(PdfPTable table) throws IOException {
 
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         for (ReservationEntity reserve : reserves) {
 
             String image = reserve.getBook().getImageLinks();
-
             Image img =  Image.getInstance(new URL(image));
-
-
-
             if(reserve.getIs_reservado()==true){
 
                 table.addCell(String.valueOf(reserve.getUsuario().getNombre()));
@@ -104,30 +88,21 @@ public class ReservationPDF {
     public void exportUser(HttpServletResponse response) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4);
         PdfWriter.getInstance(document, response.getOutputStream());
-
         document.open();
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setSize(18);
         font.setColor(Color.BLUE);
-
         Paragraph p = new Paragraph("List of Reserves", font);
-
         p.setAlignment(Paragraph.ALIGN_CENTER);
-
         document.add(p);
-
         PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
         table.setWidths(new float[] {1.5f, 1.5f, 1.5f, 1.5f,1.5f});
         table.setSpacingBefore(10);
-
         writeTableHeader(table);
         writeTableData(table);
-
         document.add(table);
-
         document.close();
-
     }
 
 }
