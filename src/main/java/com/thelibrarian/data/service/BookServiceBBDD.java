@@ -19,7 +19,6 @@ public class BookServiceBBDD implements IBookService {
     @Autowired
     private IBookDao bookDao;
 
-
     public List<BookDto> findAll() {
 
         return bookDao.findAll()
@@ -28,26 +27,34 @@ public class BookServiceBBDD implements IBookService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<BookDto> save(BookDto bookDto){
+    public ResponseEntity<BookDto> save(BookDto bookDto) {
 
-        BookEntity bookEntity = new BookEntity();
+        BookEntity book = findByIsbn(bookDto.getIsbn());
 
-        bookEntity.setId_book(bookDto.getId_book());
-        bookEntity.setTitle(bookDto.getTitle());
-        bookEntity.setPublishedDate(bookDto.getPublishedDate());
-        bookEntity.setIsbn(bookDto.getIsbn());
-        bookEntity.setDescription(bookDto.getDescription());
-        bookEntity.setImageLinks(bookDto.getImageLinks());
-        bookEntity.setPageCount(bookDto.getPageCount());
-        bookEntity.setLanguage(bookDto.getLanguage());
-        bookEntity.setPreviewLink(bookDto.getPreviewLink());
+        if (bookDao.existsById(book.getId_book())) {
 
-        bookDao.save(bookEntity);
+            return ResponseEntity.ok().body(bookDto);
+        } else {
 
-        return ResponseEntity.ok().body(bookDto);
+            BookEntity bookEntity = new BookEntity();
+
+            bookEntity.setId_book(bookDto.getId_book());
+            bookEntity.setTitle(bookDto.getTitle());
+            bookEntity.setPublishedDate(bookDto.getPublishedDate());
+            bookEntity.setIsbn(bookDto.getIsbn());
+            bookEntity.setDescription(bookDto.getDescription());
+            bookEntity.setImageLinks(bookDto.getImageLinks());
+            bookEntity.setPageCount(bookDto.getPageCount());
+            bookEntity.setLanguage(bookDto.getLanguage());
+            bookEntity.setPreviewLink(bookDto.getPreviewLink());
+
+            bookDao.save(bookEntity);
+
+            return ResponseEntity.ok().body(bookDto);
+
+        }
 
     }
-
 
     public BookEntity findById(Integer id) {
 
@@ -90,10 +97,7 @@ public class BookServiceBBDD implements IBookService {
         bookDto.setImageLinks(book.getImageLinks());
         bookDto.setPageCount(book.getPageCount());
         bookDto.setLanguage(book.getLanguage());
-        
+
         return bookDto;
     }
 }
-
-
-
