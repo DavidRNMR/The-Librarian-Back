@@ -28,16 +28,22 @@ public class BookServiceBBDD implements IBookService {
     }
 
     public ResponseEntity<BookDto> save(BookDto bookDto) {
-
+        
         BookEntity book = findByIsbn(bookDto.getIsbn());
+        
+        
+        try {
 
-        if (bookDao.existsById(book.getId_book())) {
-
-            return ResponseEntity.ok().body(bookDto);
-        } else {
-
+            if (book != null || bookDao.existsById(book.getId_book())) {
+            
+                return ResponseEntity.ok().body(bookDto);
+            }
+            return null;
+            
+        } catch (Exception e) {
+    
             BookEntity bookEntity = new BookEntity();
-
+    
             bookEntity.setId_book(bookDto.getId_book());
             bookEntity.setTitle(bookDto.getTitle());
             bookEntity.setPublishedDate(bookDto.getPublishedDate());
@@ -51,9 +57,11 @@ public class BookServiceBBDD implements IBookService {
             bookDao.save(bookEntity);
 
             return ResponseEntity.ok().body(bookDto);
-
+            
         }
+        
 
+        
     }
 
     public BookEntity findById(Integer id) {
